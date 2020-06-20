@@ -2,6 +2,7 @@ package com.bitco.nsuns.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -13,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 // To access the database itself:
 // Run 'adb forward tcp:8080 tcp:8080' in terminal while debugging, then localhost:8080.
@@ -20,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database
     private static final String DATABASE_NAME = "appDatabase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Workout Table
     private static final String TABLE_WORKOUTS = "workouts";
@@ -36,13 +38,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + ")";
 
     // Exercises Table
-    private static final String TABLE_EXERCISES = "exercises";
+    private static final String TABLE_PRIMARYEXERCISES = "primaryExercises";
     // id
     private static final String KEY_NAME = "name";
     private static final String KEY_TM = "tm";
     private static final String KEY_SETS = "sets";
 
-    private static final String CREATE_TABLE_EXERCISES = "CREATE TABLE " + TABLE_EXERCISES
+    private static final String CREATE_TABLE_PRIMARYEXERCISES = "CREATE TABLE " + TABLE_PRIMARYEXERCISES
+            + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_NAME + " TEXT,"
+            + KEY_TM + " FLOAT,"
+            + KEY_SETS + " TEXT"
+            + ")";
+
+    private static final String TABLE_SECONDARYEXERCISES = "secondaryExercises";
+    private static final String CREATE_TABLE_SECONDARYEXERCISES = "CREATE TABLE " + TABLE_SECONDARYEXERCISES
             + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_NAME + " TEXT,"
@@ -58,19 +69,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_WORKOUTS);
-        db.execSQL(CREATE_TABLE_EXERCISES);
+        db.execSQL(CREATE_TABLE_PRIMARYEXERCISES);
+        db.execSQL(CREATE_TABLE_SECONDARYEXERCISES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORKOUTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRIMARYEXERCISES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SECONDARYEXERCISES);
 
         onCreate(db);
     }
 
-
-    public void insertExercise(Exercise e) {
+    public void insertPrimaryExercise(Exercise e) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, e.getName());
@@ -82,7 +94,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_SETS, object);
 
-        db.insert(TABLE_EXERCISES, null, values);
+        db.insert(TABLE_PRIMARYEXERCISES, null, values);
+        db.close();
+    }
+
+    public void insertSecondaryExercise(Exercise e) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, e.getName());
+        values.put(KEY_TM, e.getTm());
+
+        Gson gson = new Gson();
+        Type setListType = new TypeToken<ArrayList<RepSet>>(){}.getType();
+        String object = gson.toJson(e.getSets(), setListType);
+
+        values.put(KEY_SETS, object);
+
+        db.insert(TABLE_SECONDARYEXERCISES, null, values);
         db.close();
     }
 
@@ -96,4 +124,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<Exercise> getPrimaryExercises() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Exercise> exercises = new ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_PRIMARYEXERCISES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String exerciseName = cursor.getString(1);
+                float trainingMax = cursor.getFloat(2);
+                String list = cursor.getString(3);
+
+                Gson gson = new Gson();
+                Type setListType = new TypeToken<ArrayList<RepSet>>(){}.getType();
+                ArrayList<RepSet> setList = gson.fromJson(list, setListType);
+
+                Exercise exercise = new Exercise(exerciseName, setList, trainingMax);
+
+                exercises.add(exercise);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return exercises;
+    }
+
+    public ArrayList<Exercise> getSecondaryExercises() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Exercise> exercises = new ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_SECONDARYEXERCISES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String exerciseName = cursor.getString(1);
+                float trainingMax = cursor.getFloat(2);
+                String list = cursor.getString(4);
+
+                Gson gson = new Gson();
+                Type setListType = new TypeToken<ArrayList<RepSet>>(){}.getType();
+                ArrayList<RepSet> setList = gson.fromJson(list, setListType);
+
+                Exercise exercise = new Exercise(exerciseName, setList, trainingMax);
+
+                exercises.add(exercise);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return exercises;
+    }
 }

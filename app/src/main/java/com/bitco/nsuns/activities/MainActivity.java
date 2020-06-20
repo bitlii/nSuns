@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
         // Temporary to fill database with pre-made data for testing.
-        if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), "exercises") == 0) {
+        if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), "primaryExercises") == 0) {
             createDBEntries();
         }
 
@@ -88,15 +88,19 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Exercise> exercises = new ArrayList<>();
         exercises.add(e1);
-        exercises.add(e2);
+        exercises.add(e5);
         exercises.add(e3);
         exercises.add(e4);
-        exercises.add(e5);
+        exercises.add(e2);
         exercises.add(e6);
         exercises.add(e7);
 
-        for(int i=0; i<exercises.size(); i++) {
-            db.insertExercise(exercises.get(i));
+        for(int i=0; i<4; i++) {
+            db.insertPrimaryExercise(exercises.get(i));
+        }
+
+        for(int i=4; i<exercises.size(); i++) {
+            db.insertSecondaryExercise(exercises.get(i));
         }
 
         Workout d1 = new Workout(e3, e4);

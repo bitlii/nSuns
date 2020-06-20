@@ -3,4 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="currentTrainingMax">Current Training Max</string>
+    <string name="pressName">OHP</string>
+    <string name="squatsName">Squats</string>
+    <string name="deadliftsName">Deadlifts</string>
+    <string name="benchName">Bench Press</string>
+    <string name="frontSquatsName">Front Squats</string>
+    <string name="sumoDeadliftsName">Sumo Deadlifts</string>
+    <string name="closeGripBenchName">CG Bench</string>
+    <string name="unitMetric">kg</string>
 </resources>
