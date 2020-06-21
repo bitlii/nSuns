@@ -34,4 +34,5 @@ public class Exercise {
     public float getTm() {
         return tm;
     }
+
 }

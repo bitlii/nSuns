@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
         // Temporary to fill database with pre-made data for testing.
-        if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), "primaryExercises") == 0) {
+        if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), "exercises") == 0) {
             createDBEntries();
         }
 
@@ -73,35 +73,33 @@ public class MainActivity extends AppCompatActivity {
 
         Exercise e1 = new Exercise("Deadlifts", newSets,  117.5f);
         e1.updateRepSets();
-        Exercise e2 = new Exercise("Front Squats", newSets, 105f);
-        e2.updateRepSets();
+
         Exercise e3 = new Exercise("Bench", newSets, 70f);
         e3.updateRepSets();
         Exercise e4 = new Exercise("OHP", newSets, 42.5f);
         e4.updateRepSets();
-        Exercise e5 = new Exercise("Squats", newSets, 105);
+        Exercise e5 = new Exercise("Squats", newSets, 105f);
         e5.updateRepSets();
-        Exercise e6 = new Exercise("Sumo Deadlifts", newSets,117.5f);
+        Exercise e6 = new Exercise("Sumo Deadlifts", newSets, 117.5f);
         e6.updateRepSets();
-        Exercise e7 = new Exercise("CG Bench", newSets,70f);
+        Exercise e7 = new Exercise("CG Bench", newSets, 70f);
         e7.updateRepSets();
+        Exercise e2 = new Exercise("Front Squats", newSets, 105f);
+        e2.updateRepSets();
 
-        ArrayList<Exercise> exercises = new ArrayList<>();
-        exercises.add(e1);
-        exercises.add(e5);
-        exercises.add(e3);
-        exercises.add(e4);
-        exercises.add(e2);
-        exercises.add(e6);
-        exercises.add(e7);
+        ArrayList<Exercise> primaryExercises = new ArrayList<>();
+        primaryExercises.add(e1);
+        primaryExercises.add(e3);
+        primaryExercises.add(e5);
+        primaryExercises.add(e4);
 
-        for(int i=0; i<4; i++) {
-            db.insertPrimaryExercise(exercises.get(i));
+        for(int i=0; i<primaryExercises.size(); i++) {
+            db.insertPrimaryExercise(primaryExercises.get(i));
         }
 
-        for(int i=4; i<exercises.size(); i++) {
-            db.insertSecondaryExercise(exercises.get(i));
-        }
+        db.insertSecondaryExercise(e2, "Squats");
+        db.insertSecondaryExercise(e6, "Deadlifts");
+        db.insertSecondaryExercise(e7, "Bench");
 
         Workout d1 = new Workout(e3, e4);
         Workout d2 = new Workout(e5, e6);

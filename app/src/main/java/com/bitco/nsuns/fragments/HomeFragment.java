@@ -18,7 +18,6 @@ import com.bitco.nsuns.database.DatabaseHandler;
 import com.bitco.nsuns.items.Exercise;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -35,7 +34,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         db = new DatabaseHandler(getContext());
-        exercises = db.getPrimaryExercises();
+        exercises = db.getPrimaryExerciseList();
 
         recyclerView = view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(view.getContext());

@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class Workout {
 
-    private Exercise e1;
-    private Exercise e2;
+    private Exercise primaryExercise;
+    private Exercise secondaryExercise;
 
     // todo: implement accessories.
     private ArrayList<Exercise> accessories;
 
     public Workout(Exercise e1, Exercise e2) {
-        this.e1 = e1;
-        this.e2 = e2;
+        this.primaryExercise = e1;
+        this.secondaryExercise = e2;
     }
 
-    public Exercise getE1() {
-        return e1;
+    public Exercise getPrimaryExercise() {
+        return primaryExercise;
     }
 
-    public Exercise getE2() {
-        return e2;
+    public Exercise getSecondaryExercise() {
+        return secondaryExercise;
     }
 }
