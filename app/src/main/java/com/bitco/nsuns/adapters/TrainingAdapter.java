@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
+import com.bitco.nsuns.activities.WorkoutActivity;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.Workout;
 
@@ -60,13 +61,13 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
         exercise = dataset.get(position).getSecondaryExercise();
         holder.exerciseTwo.setText(exercise.getName());
 
-        /*
         holder.layout.setOnClickListener(view -> {
             Context context = view.getContext();
-            Intent intent = new Intent(context, DayTrainActivity.class);
-            intent.putExtra("daynum", dataset.get(position).getNum());
-            ((Activity) context).startActivityForResult(intent, 1);
-        });*/
+            Intent intent = new Intent(context, WorkoutActivity.class);
+            intent.putExtra("primaryExercise", dataset.get(position).getPrimaryExercise());
+            intent.putExtra("secondaryExercise", dataset.get(position).getSecondaryExercise());
+            context.startActivity(intent);
+        });
     }
 
     @Override

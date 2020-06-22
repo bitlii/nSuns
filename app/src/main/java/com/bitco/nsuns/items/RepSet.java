@@ -1,6 +1,9 @@
 package com.bitco.nsuns.items;
 
-public class RepSet {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RepSet implements Parcelable {
 
     private float percent;
     private float weight;
@@ -29,6 +32,53 @@ public class RepSet {
         this.weight = Calculate.round(tm * this.percent, 2.5f);
     }
 
+    public float getPercent() {
+        return percent;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public boolean isAmrap() {
+        return isAmrap;
+    }
 
 
+    // Parcelables
+    public RepSet(Parcel source) {
+        this.percent = source.readFloat();
+        this.weight = source.readFloat();
+        this.reps = source.readInt();
+        this.isAmrap = source.readBoolean();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int i) {
+        dest.writeFloat(percent);
+        dest.writeFloat(weight);
+        dest.writeInt(reps);
+        dest.writeBoolean(isAmrap);
+    }
+
+    public static final Parcelable.Creator<RepSet> CREATOR = new Parcelable.Creator<RepSet>() {
+        @Override
+        public RepSet createFromParcel(Parcel source) {
+            return new RepSet(source);
+        }
+
+        @Override
+        public RepSet[] newArray(int size) {
+            return new RepSet[size];
+        }
+    };
 }
