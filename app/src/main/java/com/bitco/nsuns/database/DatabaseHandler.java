@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database
     private static final String DATABASE_NAME = "appDatabase";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     // Workout Table
     private static final String TABLE_WORKOUTS = "workouts";
@@ -208,6 +208,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return exercises;
+    }
+
+    public void updateExerciseTrainingMax(String name, float newTm) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("tm", newTm);
+
+        db.update(TABLE_EXERCISES, cv, "name = '" + name + "'", null);
+        db.close();
+
+    }
+
+    public void updateRepSets(Exercise e) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        Gson gson = new Gson();
+        Type setListType = new TypeToken<ArrayList<RepSet>>(){}.getType();
+        String object = gson.toJson(e.getSets(), setListType);
+        cv.put("sets", object);
+
+        db.update(TABLE_EXERCISES, cv, "name = '" + e.getName() + "'", null);
+        db.close();
     }
 
 }

@@ -1,11 +1,14 @@
 package com.bitco.nsuns.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.database.DatabaseHandler;
@@ -60,31 +63,21 @@ public class MainActivity extends AppCompatActivity {
 
     // Temp function to fill table with preexisting info until i can get around to making an initialisation page.
     public void createDBEntries() {
-        ArrayList<RepSet> newSets = new ArrayList<>();
-        newSets.add(new RepSet(0.75f, 5, false));
-        newSets.add(new RepSet(0.85f, 3, false));
-        newSets.add(new RepSet(0.95f, 1, true));
-        newSets.add(new RepSet(0.90f, 3, false));
-        newSets.add(new RepSet(0.85f, 3, false));
-        newSets.add(new RepSet(0.80f, 3, false));
-        newSets.add(new RepSet(0.75f, 3, false));
-        newSets.add(new RepSet(0.70f, 3, false));
-        newSets.add(new RepSet(0.65f, 3, false));
 
-        Exercise e1 = new Exercise("Deadlifts", newSets,  117.5f);
+        Exercise e1 = new Exercise("Deadlifts", createNewSets(),  117.5f);
         e1.updateRepSets();
 
-        Exercise e3 = new Exercise("Bench", newSets, 70f);
+        Exercise e3 = new Exercise("Bench", createNewSets(), 70f);
         e3.updateRepSets();
-        Exercise e4 = new Exercise("OHP", newSets, 42.5f);
+        Exercise e4 = new Exercise("OHP", createNewSets(), 42.5f);
         e4.updateRepSets();
-        Exercise e5 = new Exercise("Squats", newSets, 105f);
+        Exercise e5 = new Exercise("Squats", createNewSets(), 105f);
         e5.updateRepSets();
-        Exercise e6 = new Exercise("Sumo Deadlifts", newSets, 117.5f);
+        Exercise e6 = new Exercise("Sumo Deadlifts", createNewSets(), 117.5f);
         e6.updateRepSets();
-        Exercise e7 = new Exercise("CG Bench", newSets, 70f);
+        Exercise e7 = new Exercise("CG Bench", createNewSets(), 70f);
         e7.updateRepSets();
-        Exercise e2 = new Exercise("Front Squats", newSets, 105f);
+        Exercise e2 = new Exercise("Front Squats", createNewSets(), 105f);
         e2.updateRepSets();
 
         ArrayList<Exercise> primaryExercises = new ArrayList<>();
@@ -112,6 +105,38 @@ public class MainActivity extends AppCompatActivity {
         db.insertWorkout(d4);
 
         Log.i("Example Data", "Successfully Inserted Data");
+
+    }
+    // Helper function for the above createdbentries function.
+    public ArrayList<RepSet> createNewSets() {
+        ArrayList<RepSet> newSets = new ArrayList<>();
+        newSets.add(new RepSet(0.75f, 5, false));
+        newSets.add(new RepSet(0.85f, 3, false));
+        newSets.add(new RepSet(0.95f, 1, true));
+        newSets.add(new RepSet(0.90f, 3, false));
+        newSets.add(new RepSet(0.85f, 3, false));
+        newSets.add(new RepSet(0.80f, 3, false));
+        newSets.add(new RepSet(0.75f, 3, false));
+        newSets.add(new RepSet(0.70f, 3, false));
+        newSets.add(new RepSet(0.65f, 3, false));
+
+        return newSets;
+    }
+
+    public void completeTraining(View view) {
+        Intent intent = new Intent(view.getContext(), FinishTrainingActivity.class);
+        startActivityForResult(intent, 0);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (frag instanceof TrainingFragment) {
+            ((TrainingFragment) frag).updateData();
+        }
 
     }
 

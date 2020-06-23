@@ -14,4 +14,19 @@ public class Calculate {
     public static float round(float value, float factor) {
         return Math.round(value / factor) * factor;
     }
+
+    public static float[] arrayRound(float[] numbers, float factor) {
+        float[] rounded = new float[numbers.length];
+        for(int i=0; i<numbers.length; i++) {
+            if (numbers[i] == 0) {
+                rounded[i] = numbers[i];
+            }
+            else {
+                rounded[i] = Calculate.round(numbers[i], factor);
+            }
+
+        }
+
+        return rounded;
+    }
 }

@@ -22,7 +22,7 @@ public class Exercise implements Parcelable {
      */
     public void updateRepSets() {
         for (RepSet set : sets) {
-            set.calculateWeight(tm);
+            set.calculateWeight(this.tm);
         }
     }
 
@@ -36,6 +36,11 @@ public class Exercise implements Parcelable {
 
     public float getTm() {
         return tm;
+    }
+
+    public void setTm(float tm) {
+        this.tm = tm;
+        this.updateRepSets();
     }
 
 
