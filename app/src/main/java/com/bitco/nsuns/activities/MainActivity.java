@@ -4,9 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
@@ -21,6 +24,7 @@ import com.bitco.nsuns.items.RepSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHandler db;
@@ -31,11 +35,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        boolean isFirstTime = prefs.getBoolean(getString(R.string.firstTime), true);
+        if (isFirstTime) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(getString(R.string.firstTime), false);
+            editor.commit();
+            Intent intent = new Intent(this, SetupActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         db = new DatabaseHandler(this);
+        /*
         // Temporary to fill database with pre-made data for testing.
         if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), "exercises") == 0) {
             createDBEntries();
         }
+        */
+
 
         // Bottom Nav View
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -138,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
             ((TrainingFragment) frag).updateData();
         }
 
+    }
+
+    public void testSetupScreen(View v) {
+        Intent intent = new Intent(this, SetupActivity.class);
+        startActivity(intent);
     }
 
 }

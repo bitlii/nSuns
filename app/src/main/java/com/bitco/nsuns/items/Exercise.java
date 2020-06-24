@@ -15,6 +15,7 @@ public class Exercise implements Parcelable {
         this.name = name;
         this.sets = sets;
         this.tm = tm;
+        this.updateRepSets();
     }
 
     /**

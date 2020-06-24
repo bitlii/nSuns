@@ -11,4 +11,5 @@
     <string name="sumoDeadliftsName">Sumo Deadlifts</string>
     <string name="closeGripBenchName">CG Bench</string>
     <string name="unitMetric">kg</string>
+    <string name="firstTime">firstTime</string>
 </resources>
