@@ -42,7 +42,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="120"
+                android:text="@string/placeholderFloat"
                 android:textColor="@android:color/primary_text_light"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"

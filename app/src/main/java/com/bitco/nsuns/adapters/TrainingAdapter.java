@@ -32,7 +32,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
 
         public TrainingViewHolder(View v) {
             super(v);
-            header = v.findViewById(R.id.dayHeader);
+            header = v.findViewById(R.id.textHeader);
             exerciseOne = v.findViewById(R.id.exerciseOne);
             exerciseTwo = v.findViewById(R.id.exerciseTwo);
             layout = v.findViewById(R.id.parent);

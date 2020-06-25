@@ -12,4 +12,7 @@
     <string name="closeGripBenchName">CG Bench</string>
     <string name="unitMetric">kg</string>
     <string name="firstTime">firstTime</string>
+    <string name="placeholderFloat">122.5</string>
+    <string name="textTrain">Train</string>
+    <string name="placeholderDay">Day 4</string>
 </resources>
