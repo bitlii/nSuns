@@ -34,12 +34,13 @@
 
             <TextView
                 android:id="@+id/weight"
+                style="@style/Widget.MaterialComponents.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="Weight"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="?attr:"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

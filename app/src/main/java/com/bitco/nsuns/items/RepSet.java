@@ -51,10 +51,10 @@ public class RepSet implements Parcelable {
 
     // Parcelables
     public RepSet(Parcel source) {
+        this.isAmrap = source.readInt() == 1;
         this.percent = source.readFloat();
-        this.weight = source.readFloat();
         this.reps = source.readInt();
-        this.isAmrap = source.readBoolean();
+        this.weight = source.readFloat();
     }
 
     @Override
@@ -64,10 +64,10 @@ public class RepSet implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
+        dest.writeInt(isAmrap ? 1 : 0);
         dest.writeFloat(percent);
-        dest.writeFloat(weight);
         dest.writeInt(reps);
-        dest.writeBoolean(isAmrap);
+        dest.writeFloat(weight);
     }
 
     public static final Parcelable.Creator<RepSet> CREATOR = new Parcelable.Creator<RepSet>() {

@@ -57,6 +57,10 @@ public class FinishTrainingActivity extends AppCompatActivity {
         finish();
     }
 
+    public void back(View v) {
+        finish();
+    }
+
     public RecyclerView.Adapter getrAdapter() {
         return rAdapter;
     }
