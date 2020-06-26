@@ -27,7 +27,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
                 android:text="Example text"
-                android:textColor="@android:color/secondary_text_light_nodisable"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/weight" />
@@ -40,7 +40,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="Weight"
-                android:textColor="?attr:"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/unitMetric"
-                android:textColor="@android:color/primary_text_light"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/weight"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,6 +65,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:text="Reps"
+                android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -78,6 +79,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
                 android:text="5x"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

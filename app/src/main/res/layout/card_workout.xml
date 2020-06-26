@@ -17,6 +17,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:minHeight="80dp"
+        app:cardBackgroundColor="?android:attr/colorBackground"
         app:layout_constraintTop_toBottomOf="@+id/header"
         tools:layout_editor_absoluteX="3dp">
 
@@ -35,7 +36,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
                 android:text="@string/pressName"
-                android:textColor="@android:color/secondary_text_light_nodisable"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/exerciseTwo"
                 app:layout_constraintStart_toEndOf="@+id/textHeader"
@@ -49,7 +50,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/benchName"
-                android:textColor="@android:color/secondary_text_light_nodisable"
+                android:textColor="?android:attr/textColorSecondary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/exerciseOne"
@@ -63,6 +64,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/placeholderDay"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

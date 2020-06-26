@@ -13,6 +13,7 @@ import com.bitco.nsuns.fragments.dialogs.UpdateExerciseDialog;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.RepSet;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -57,7 +58,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         RepSet set = setList.get(position);
         holder.weight.setText(String.valueOf(set.getWeight()));
-        holder.percentage.setText((set.getPercent() * 100) + "% of TM");
+        holder.percentage.setText(Math.round(set.getPercent() * 100) + "% of TM");
 
         if (set.isAmrap()) {
             holder.reps.setText(set.getReps() + "+");
