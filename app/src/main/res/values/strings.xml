@@ -15,4 +15,5 @@
     <string name="placeholderFloat">122.5</string>
     <string name="textTrain">Train</string>
     <string name="placeholderDay">Day 4</string>
+    <string name="done">Done</string>
 </resources>
