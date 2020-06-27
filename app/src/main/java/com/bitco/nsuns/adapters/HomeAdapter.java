@@ -28,7 +28,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             title = v.findViewById(R.id.title);
             weightText = v.findViewById(R.id.weightText);
             unitText = v.findViewById(R.id.unitText);
-            layout = v.findViewById(R.id.layout);
+            layout = v.findViewById(R.id.fragment_container);
         }
     }
     public HomeAdapter(ArrayList<Exercise> data) {
