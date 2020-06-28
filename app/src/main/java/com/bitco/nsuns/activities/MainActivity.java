@@ -35,12 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("app", Context.MODE_PRIVATE);
         boolean isFirstTime = prefs.getBoolean(getString(R.string.firstTime), true);
         if (isFirstTime) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(getString(R.string.firstTime), false);
-            editor.commit();
             Intent intent = new Intent(this, SetupActivity.class);
             startActivity(intent);
             finish();

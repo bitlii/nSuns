@@ -2,7 +2,9 @@ package com.bitco.nsuns.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,6 +82,12 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
 
         }
         db.close();
+
+        SharedPreferences prefs = getSharedPreferences("app", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(getString(R.string.firstTime), false);
+        editor.apply();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
