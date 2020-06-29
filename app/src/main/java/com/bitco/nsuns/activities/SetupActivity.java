@@ -83,6 +83,7 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
         }
         db.close();
 
+        // Stores the completion of setup.
         SharedPreferences prefs = getSharedPreferences("app", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(getString(R.string.firstTime), false);

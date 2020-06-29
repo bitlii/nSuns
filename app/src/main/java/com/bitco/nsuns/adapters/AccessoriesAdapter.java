@@ -7,10 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
-import com.bitco.nsuns.fragments.AccessoriesFragment;
 import com.bitco.nsuns.items.Exercise;
-import com.bitco.nsuns.items.RepSet;
-
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
