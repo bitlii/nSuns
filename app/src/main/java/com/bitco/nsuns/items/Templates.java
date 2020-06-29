@@ -2,7 +2,6 @@ package com.bitco.nsuns.items;
 
 import android.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 

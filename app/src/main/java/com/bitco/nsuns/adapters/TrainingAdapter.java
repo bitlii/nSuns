@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder> {
 
     private List<Workout> dataset;
-    private View view;
 
     public static class TrainingViewHolder extends RecyclerView.ViewHolder {
         public TextView header;
@@ -46,7 +45,6 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
     @Override
     public TrainingAdapter.TrainingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_workout, parent, false);
-        view = v;
         TrainingViewHolder vh = new TrainingViewHolder(v);
         return vh;
     }

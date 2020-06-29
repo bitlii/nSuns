@@ -25,7 +25,6 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
     private ArrayList<Exercise> dataset;
     private ArrayList<Float> selectedChanges;
-    private View view;
 
     public static class UpdateExerciseViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
@@ -52,10 +51,9 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
     @NonNull
     @Override
-    public UpdateExerciseAdapter.UpdateExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UpdateExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_update_exercise_tm, parent, false);
-        view = v;
-        UpdateExerciseAdapter.UpdateExerciseViewHolder vh = new UpdateExerciseAdapter.UpdateExerciseViewHolder(v);
+        UpdateExerciseViewHolder vh = new UpdateExerciseViewHolder(v);
         return vh;
     }
 
@@ -90,7 +88,6 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
     @Override
     public void onReturnBundle(Bundle bundle) { }
-
 
     public ArrayList<Float> getSelectedChanges() {
         return selectedChanges;

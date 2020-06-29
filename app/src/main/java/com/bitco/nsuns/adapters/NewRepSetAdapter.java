@@ -2,15 +2,10 @@ package com.bitco.nsuns.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
@@ -18,9 +13,6 @@ import com.bitco.nsuns.fragments.dialogs.AddNewSetDialog;
 import com.bitco.nsuns.items.RepSet;
 import com.bitco.nsuns.listeners.DialogFragmentListener;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;

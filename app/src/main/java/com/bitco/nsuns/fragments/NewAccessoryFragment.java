@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.activities.WorkoutActivity;
-import com.bitco.nsuns.adapters.AccessoriesAdapter;
-import com.bitco.nsuns.adapters.HomeAdapter;
 import com.bitco.nsuns.adapters.NewRepSetAdapter;
-import com.bitco.nsuns.adapters.WorkoutAdapter;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.RepSet;
 

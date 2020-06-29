@@ -2,7 +2,6 @@ package com.bitco.nsuns.fragments.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.NumberPicker;
 
@@ -15,7 +14,6 @@ import androidx.fragment.app.DialogFragment;
 public class UpdateExerciseDialog extends DialogFragment {
 
     private NumberPicker picker;
-    private String exerciseName;
     // this is super temporary!!! todo: change this hardcoded stuff.
     private String[] increments = {"5", "2.5", "0", "-2.5", "-5"};
 
@@ -32,16 +30,12 @@ public class UpdateExerciseDialog extends DialogFragment {
         builder.setView(picker);
         builder.setTitle("Update Training Max").setMessage("Increase/Decrease TM");
 
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String selectedIncrement = increments[picker.getValue()];
-                //DialogFragmentListener activity = (DialogFragmentListener) getActivity();
-                FinishTrainingActivity activity = (FinishTrainingActivity) getActivity();
-                DialogFragmentListener frag = (DialogFragmentListener) activity.getrAdapter();
-                Bundle bundle = getArguments();
-                frag.onReturnValue(selectedIncrement, bundle.getInt("position"));
-            }
+        builder.setPositiveButton("Done", (dialogInterface, i) -> {
+            String selectedIncrement = increments[picker.getValue()];
+            FinishTrainingActivity activity = (FinishTrainingActivity) getActivity();
+            DialogFragmentListener frag = (DialogFragmentListener) activity.getrAdapter();
+            Bundle bundle = getArguments();
+            frag.onReturnValue(selectedIncrement, bundle.getInt("position"));
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> {

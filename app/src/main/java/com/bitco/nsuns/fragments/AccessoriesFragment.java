@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.adapters.AccessoriesAdapter;
 import com.bitco.nsuns.items.Exercise;
-import com.bitco.nsuns.items.Workout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;

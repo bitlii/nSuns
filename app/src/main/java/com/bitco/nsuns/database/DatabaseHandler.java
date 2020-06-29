@@ -12,10 +12,8 @@ import com.bitco.nsuns.items.Workout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 // To access the database itself:
 // Run 'adb forward tcp:8080 tcp:8080' in terminal while debugging, then localhost:8080.
