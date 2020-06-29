@@ -16,6 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="testSetupScreen"
-        android:text="TESTButton" />
+        android:text="GOTO Setup" />
 
 </RelativeLayout>

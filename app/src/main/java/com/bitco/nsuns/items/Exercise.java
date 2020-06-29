@@ -19,6 +19,18 @@ public class Exercise implements Parcelable {
     }
 
     /**
+     * Constructor for a new Exercise object. This is mainly used for accessories where the TM
+     * is irrelevant for the accessory's sets' weights.
+     * @param name of the exercise.
+     * @param sets the arraylist of RepSets that represent the exercise.
+     */
+    public Exercise(String name, ArrayList<RepSet> sets) {
+        this.name = name;
+        this.sets = sets;
+        this.tm = 0;
+    }
+
+    /**
      * Update the rep sets' weights according to the training max.
      */
     public void updateRepSets() {

@@ -63,8 +63,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
         holder.layout.setOnClickListener(view -> {
             Context context = view.getContext();
             Intent intent = new Intent(context, WorkoutActivity.class);
-            intent.putExtra("primaryExercise", dataset.get(position).getPrimaryExercise());
-            intent.putExtra("secondaryExercise", dataset.get(position).getSecondaryExercise());
+            intent.putExtra("workout", dataset.get(position));
             context.startActivity(intent);
         });
     }

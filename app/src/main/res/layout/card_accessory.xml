@@ -25,46 +25,29 @@
             android:minHeight="80dp">
 
             <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/squatsName"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/accessoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/placeholderFloat"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="Accessory"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/unitText"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/unitMetric"
-                android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintBottom_toBottomOf="@+id/accessoryName"
-                app:layout_constraintStart_toEndOf="@+id/accessoryName"
-                app:layout_constraintTop_toTopOf="@+id/accessoryName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/Card1" />
 
 
 </LinearLayout>

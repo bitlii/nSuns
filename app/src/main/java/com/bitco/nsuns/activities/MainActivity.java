@@ -7,9 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
@@ -24,7 +22,6 @@ import com.bitco.nsuns.items.RepSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHandler db;
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         // Bottom Nav View
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.parent, new HomeFragment()).commit();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.parent, selectedFragment).commit();
         return true;
     };
 
@@ -148,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.parent);
         if (frag instanceof TrainingFragment) {
             ((TrainingFragment) frag).updateData();
         }

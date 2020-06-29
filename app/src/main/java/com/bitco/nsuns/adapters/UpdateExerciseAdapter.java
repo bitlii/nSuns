@@ -35,7 +35,7 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
         public UpdateExerciseViewHolder(View v) {
             super(v);
-            weightText = v.findViewById(R.id.weightText);
+            weightText = v.findViewById(R.id.accessoryName);
             title = v.findViewById(R.id.title);
             changeText = v.findViewById(R.id.change);
             layout = v.findViewById(R.id.parent);
@@ -87,6 +87,10 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
         selectedChanges.set(pos, Float.valueOf(value));
         notifyItemChanged(pos);
     }
+
+    @Override
+    public void onReturnBundle(Bundle bundle) { }
+
 
     public ArrayList<Float> getSelectedChanges() {
         return selectedChanges;

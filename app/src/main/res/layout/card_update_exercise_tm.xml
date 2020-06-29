@@ -30,8 +30,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/unitMetric"
                 android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintStart_toEndOf="@+id/weightText"
-                app:layout_constraintTop_toTopOf="@+id/weightText" />
+                app:layout_constraintStart_toEndOf="@+id/accessoryName"
+                app:layout_constraintTop_toTopOf="@+id/accessoryName" />
 
             <TextView
                 android:id="@+id/title"
@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/weightText"
+                android:id="@+id/accessoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"

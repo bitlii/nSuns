@@ -10,6 +10,12 @@ public class RepSet implements Parcelable {
     private int reps;
     private boolean isAmrap;
 
+    public RepSet(float weight, int reps) {
+        this.percent = 0f;
+        this.weight = weight;
+        this.reps = reps;
+        this.isAmrap = false;
+    }
 
     public RepSet(float percent, int reps, boolean isAmrap) {
         this.percent = percent;
@@ -48,6 +54,21 @@ public class RepSet implements Parcelable {
         return isAmrap;
     }
 
+    public void setPercent(float percent) {
+        this.percent = percent;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
+    }
+
+    public void setAmrap(boolean amrap) {
+        isAmrap = amrap;
+    }
 
     // Parcelables
     public RepSet(Parcel source) {

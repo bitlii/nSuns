@@ -12,6 +12,7 @@ import com.bitco.nsuns.items.Workout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +23,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database
     private static final String DATABASE_NAME = "appDatabase";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     // Workout Table
     private static final String TABLE_WORKOUTS = "workouts";
     private static final String KEY_ID = "id";
     private static final String KEY_PRIMARYEXERCISE = "primaryExercise";
     private static final String KEY_SECONDARYEXERCISE = "secondaryExercise";
-    // isPrimary: 1 = true, 0 = false;
-    private static final String KEY_ISPRIMARY = "isPrimary";
+    private static final String KEY_ACCESSORIES = "accessories";
 
     private static final String CREATE_TABLE_WORKOUTS = "CREATE TABLE " + TABLE_WORKOUTS
             + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_PRIMARYEXERCISE + " TEXT,"
-            + KEY_SECONDARYEXERCISE + " TEXT"
+            + KEY_SECONDARYEXERCISE + " TEXT,"
+            + KEY_ACCESSORIES + " TEXT"
             + ")";
 
     // Exercises Table
@@ -45,6 +46,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_TM = "tm";
     private static final String KEY_SETS = "sets";
+    // isPrimary: 1 = true, 0 = false;
+    private static final String KEY_ISPRIMARY = "isPrimary";
     private static final String CREATE_TABLE_EXERCISES = "CREATE TABLE " + TABLE_EXERCISES
             + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
@@ -128,6 +131,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PRIMARYEXERCISE, wo.getPrimaryExercise().getName());
         values.put(KEY_SECONDARYEXERCISE, wo.getSecondaryExercise().getName());
 
+        Gson gson = new Gson();
+        Type setListType = new TypeToken<ArrayList<Exercise>>(){}.getType();
+        String object = gson.toJson(wo.getAccessories(), setListType);
+        values.put("accessories", object);
+
         db.insert(TABLE_WORKOUTS, null, values);
         db.close();
     }
@@ -142,9 +150,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
+                String list = cursor.getString(3);
+                Gson gson = new Gson();
+                Type setListType = new TypeToken<ArrayList<Exercise>>(){}.getType();
+                ArrayList<Exercise> setList = gson.fromJson(list, setListType);
+
                 Workout workout = new Workout(
                         getExercise(cursor.getString(1)),
-                        getExercise(cursor.getString(2)));
+                        getExercise(cursor.getString(2)),
+                        setList);
 
                 workouts.add(workout);
             } while (cursor.moveToNext());
@@ -208,6 +222,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return exercises;
+    }
+
+    public void updateWorkoutAccessories(Workout workout) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        Gson gson = new Gson();
+        Type setListType = new TypeToken<ArrayList<Exercise>>(){}.getType();
+        String object = gson.toJson(workout.getAccessories(), setListType);
+        cv.put("accessories", object);
+
+        String primaryExercise = workout.getPrimaryExercise().getName();
+        String secondaryExercise = workout.getSecondaryExercise().getName();
+
+        db.update(TABLE_WORKOUTS, cv, "primaryExercise = '" + primaryExercise + "' AND secondaryExercise = '" + secondaryExercise + "'", null);
+        db.close();
+
     }
 
     public void updateExerciseTrainingMax(String name, float newTm) {

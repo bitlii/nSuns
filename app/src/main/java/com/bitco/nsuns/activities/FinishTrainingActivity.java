@@ -44,7 +44,6 @@ public class FinishTrainingActivity extends AppCompatActivity {
         for(int i=0; i<primaryExercises.size(); i++) {
             float change = rAdapter.getSelectedChanges().get(i);
             float newTm = primaryExercises.get(i).getTm() + change;
-            Log.i("After Finish", primaryExercises.get(i).getTm() + " KG");
             db.updateExerciseTrainingMax(primaryExercises.get(i).getName(), newTm);
 
             if (change != 0) {

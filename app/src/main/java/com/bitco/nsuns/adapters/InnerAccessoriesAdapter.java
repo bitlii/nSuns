@@ -1,65 +1,59 @@
 package com.bitco.nsuns.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
-import com.bitco.nsuns.fragments.dialogs.UpdateExerciseDialog;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.RepSet;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder> {
-    private Exercise exercise;
-    private ArrayList<RepSet> setList;
-    private View view;
+public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessoriesAdapter.InnerAccessoriesViewHolder> {
 
-    public static class WorkoutViewHolder extends RecyclerView.ViewHolder {
+    private Exercise exercise;
+    private ArrayList<RepSet> repSets;
+
+    public static class InnerAccessoriesViewHolder extends RecyclerView.ViewHolder {
         private TextView percentage;
         private TextView weight;
         private TextView reps;
         private LinearLayout layout;
 
-        public WorkoutViewHolder(View v) {
+        public InnerAccessoriesViewHolder(View v) {
             super(v);
             percentage = v.findViewById(R.id.percentage);
             weight = v.findViewById(R.id.weight);
-
             layout = v.findViewById(R.id.parent);
             reps = v.findViewById(R.id.reps);
         }
     }
 
-    public WorkoutAdapter(Exercise e) {
-        setList = e.getSets();
+    public InnerAccessoriesAdapter(Exercise exercise) {
+        this.exercise = exercise;
+        this.repSets = exercise.getSets();
     }
 
     @NonNull
     @Override
-    public WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InnerAccessoriesAdapter.InnerAccessoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_set, parent, false);
-        view = v;
-        WorkoutViewHolder vh = new WorkoutViewHolder(v);
+        InnerAccessoriesViewHolder vh = new InnerAccessoriesViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
-        RepSet set = setList.get(position);
+    public void onBindViewHolder(@NonNull InnerAccessoriesAdapter.InnerAccessoriesViewHolder holder, int position) {
+        RepSet set = repSets.get(position);
         holder.weight.setText(String.valueOf(set.getWeight()));
 
-        holder.percentage.setText(Math.round(set.getPercent() * 100) + "% of TM");
+        holder.percentage.setText("");
 
         if (set.isAmrap()) {
             holder.reps.setText(set.getReps() + "+");
@@ -71,6 +65,6 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
 
     @Override
     public int getItemCount() {
-        return setList.size();
+        return repSets.size();
     }
 }
