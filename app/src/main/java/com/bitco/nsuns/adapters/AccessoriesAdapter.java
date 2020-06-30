@@ -1,13 +1,20 @@
 package com.bitco.nsuns.adapters;
 
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
+import com.bitco.nsuns.database.DatabaseHandler;
 import com.bitco.nsuns.items.Exercise;
+import com.bitco.nsuns.items.Workout;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -16,30 +23,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.AccessoriesViewHolder>{
 
+    private Workout workout;
     private ArrayList<Exercise> accessories;
+    private Exercise selectedAccessory;
     private View view;
+    private ActionMode actionMode = null;
 
     public static class AccessoriesViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
+        private TextView setCount;
         private LinearLayout layout;
         private RecyclerView recycler;
 
         public AccessoriesViewHolder(View v) {
             super(v);
             title = v.findViewById(R.id.accessoryName);
-            layout = v.findViewById(R.id.parent);
+            setCount = v.findViewById(R.id.text_set_count);
+            layout = v.findViewById(R.id.layout);
             recycler = v.findViewById(R.id.recycler);
         }
     }
 
-    public AccessoriesAdapter(ArrayList<Exercise> a) {
-        accessories = a;
+    public AccessoriesAdapter(Workout wo) {
+        workout = wo;
+        accessories = wo.getAccessories();
     }
 
     @NonNull
     @Override
     public AccessoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_accessory, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_accessory, parent, false);
         view = v;
         AccessoriesViewHolder vh = new AccessoriesViewHolder(v);
         return vh;
@@ -48,6 +61,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     @Override
     public void onBindViewHolder(@NonNull AccessoriesViewHolder holder, int position) {
         Exercise accessory = accessories.get(position);
+        holder.setCount.setText(accessory.getSets().size() + " sets");
 
         InnerAccessoriesAdapter adapter = new InnerAccessoriesAdapter(accessory);
         holder.recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -61,6 +75,15 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                 holder.recycler.setVisibility(View.GONE);
             }
         });
+        holder.layout.setOnLongClickListener(view1 -> {
+            if (actionMode != null) {
+                return false;
+            }
+            actionMode = view.startActionMode(actionModeCallBack);
+            view.setSelected(true);
+            selectedAccessory = accessory;
+            return true;
+        });
 
         holder.recycler.setAdapter(adapter);
     }
@@ -69,6 +92,46 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     public int getItemCount() {
         return accessories.size();
     }
+
+    private ActionMode.Callback actionModeCallBack = new ActionMode.Callback() {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            MenuInflater inflater = actionMode.getMenuInflater();
+            inflater.inflate(R.menu.menu_context_exercise, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+            switch(menuItem.getItemId()) {
+                case R.id.delete:
+                    accessories.remove(selectedAccessory);
+                    workout.getAccessories().remove(selectedAccessory);
+
+                    DatabaseHandler db = new DatabaseHandler(view.getContext());
+                    db.updateWorkoutAccessories(workout);
+                    db.close();
+
+                    actionMode.finish();
+                    notifyDataSetChanged();
+                    return true;
+                default:
+                    return false;
+
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            actionMode = null;
+        }
+    };
 
 
 }

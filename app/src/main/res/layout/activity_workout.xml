@@ -15,32 +15,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_primary"
+            android:id="@+id/tabPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Primary" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_secondary"
+            android:id="@+id/tabSecondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Secondary" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_accessories"
+            android:id="@+id/tabAccessories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Accessories" />
     </com.google.android.material.tabs.TabLayout>
 
     <FrameLayout
-        android:id="@+id/parent"
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

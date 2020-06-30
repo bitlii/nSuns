@@ -34,8 +34,6 @@ public class MainWorkoutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_workout, container, false);
 
-        ((TextView) view.findViewById(R.id.textView)).setText(exercise.getName());
-
         recyclerView = view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         // Bottom Nav View
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.parent, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new HomeFragment()).commit();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.parent, selectedFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, selectedFragment).commit();
         return true;
     };
 
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.parent);
+        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.layout);
         if (frag instanceof TrainingFragment) {
             ((TrainingFragment) frag).updateData();
         }

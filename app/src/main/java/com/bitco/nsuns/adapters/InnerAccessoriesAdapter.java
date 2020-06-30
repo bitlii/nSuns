@@ -30,7 +30,7 @@ public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessori
             super(v);
             percentage = v.findViewById(R.id.percentage);
             weight = v.findViewById(R.id.weight);
-            layout = v.findViewById(R.id.parent);
+            layout = v.findViewById(R.id.layout);
             reps = v.findViewById(R.id.reps);
         }
     }

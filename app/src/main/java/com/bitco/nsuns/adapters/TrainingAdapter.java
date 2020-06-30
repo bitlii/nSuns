@@ -1,5 +1,6 @@
 package com.bitco.nsuns.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
             header = v.findViewById(R.id.textHeader);
             exerciseOne = v.findViewById(R.id.exerciseOne);
             exerciseTwo = v.findViewById(R.id.exerciseTwo);
-            layout = v.findViewById(R.id.parent);
+            layout = v.findViewById(R.id.layout);
         }
     }
 
@@ -62,7 +63,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
             Context context = view.getContext();
             Intent intent = new Intent(context, WorkoutActivity.class);
             intent.putExtra("workout", dataset.get(position));
-            context.startActivity(intent);
+            ((Activity) context).startActivityForResult(intent, 0);
         });
     }
 

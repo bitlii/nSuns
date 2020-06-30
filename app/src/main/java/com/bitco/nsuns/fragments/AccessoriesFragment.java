@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.adapters.AccessoriesAdapter;
 import com.bitco.nsuns.items.Exercise;
+import com.bitco.nsuns.items.Workout;
 
 import java.util.ArrayList;
 
@@ -19,16 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AccessoriesFragment extends Fragment {
 
-    ArrayList<Exercise> accessories;
+    Workout workout;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
 
-    public AccessoriesFragment(ArrayList<Exercise> a) {
+    public AccessoriesFragment(Workout workout) {
         super();
-        this.accessories = a;
+        this.workout = workout;
     }
 
     @Nullable
@@ -39,7 +40,7 @@ public class AccessoriesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AccessoriesAdapter(accessories);
+        adapter = new AccessoriesAdapter(this.workout);
         recyclerView.setAdapter(adapter);
 
         return view;

@@ -27,7 +27,7 @@ public class AddNewSetDialog extends DialogFragment {
         builder.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                NewAccessoryFragment fragment = (NewAccessoryFragment) getFragmentManager().findFragmentById(R.id.parent);
+                NewAccessoryFragment fragment = (NewAccessoryFragment) getFragmentManager().findFragmentById(R.id.layout);
                 DialogFragmentListener frag = (DialogFragmentListener) fragment.getrAdapter();
                 Bundle bundle = new Bundle();
                 bundle.putFloat("weight", Float.parseFloat(((EditText)getDialog().findViewById(R.id.editWeight)).getText().toString()));

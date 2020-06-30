@@ -1,5 +1,6 @@
 package com.bitco.nsuns.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,9 +43,11 @@ public class WorkoutActivity extends AppCompatActivity {
         db = new DatabaseHandler(this);
 
         tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.getTabAt(0).setText(workout.getPrimaryExercise().getName());
+        tabLayout.getTabAt(1).setText(workout.getSecondaryExercise().getName());
         tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.parent, new MainWorkoutFragment(primaryExercise)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new MainWorkoutFragment(primaryExercise)).commit();
     }
 
     private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
@@ -59,11 +62,11 @@ public class WorkoutActivity extends AppCompatActivity {
                     selectedFragment = new MainWorkoutFragment(secondaryExercise);
                     break;
                 case 2:
-                    selectedFragment = new AccessoriesFragment(workout.getAccessories());
+                    selectedFragment = new AccessoriesFragment(workout);
                     break;
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.parent, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout, selectedFragment).commit();
 
         }
 
@@ -85,19 +88,20 @@ public class WorkoutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_done:
+                setResult(Activity.RESULT_OK);
                 finish();
         }
         return true;
     }
 
     public void addAccessory(View v) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.parent, new NewAccessoryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new NewAccessoryFragment()).commit();
     }
 
     public void finishAddAccessory(Exercise e) {
         workout.getAccessories().add(e);
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.parent, new AccessoriesFragment(workout.getAccessories())).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AccessoriesFragment(workout)).commit();
     }
 
 }
