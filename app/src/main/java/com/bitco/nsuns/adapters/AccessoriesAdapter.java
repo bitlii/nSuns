@@ -14,6 +14,7 @@ import com.bitco.nsuns.R;
 import com.bitco.nsuns.database.DatabaseHandler;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.Workout;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         private TextView title;
         private TextView setCount;
         private LinearLayout layout;
+        private MaterialCardView card;
         private RecyclerView recycler;
 
         public AccessoriesViewHolder(View v) {
@@ -40,6 +42,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             title = v.findViewById(R.id.accessoryName);
             setCount = v.findViewById(R.id.text_set_count);
             layout = v.findViewById(R.id.layout);
+            card = v.findViewById(R.id.card);
             recycler = v.findViewById(R.id.recycler);
         }
     }
@@ -67,7 +70,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         holder.recycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         holder.title.setText(accessory.getName());
-        holder.layout.setOnClickListener(view -> {
+        holder.card.setOnClickListener(view -> {
             if (holder.recycler.getVisibility() == View.GONE) {
                 holder.recycler.setVisibility(View.VISIBLE);
             }
@@ -75,7 +78,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                 holder.recycler.setVisibility(View.GONE);
             }
         });
-        holder.layout.setOnLongClickListener(view1 -> {
+        holder.card.setOnLongClickListener(view1 -> {
             if (actionMode != null) {
                 return false;
             }
@@ -128,9 +131,10 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode actionMode) {
+        public void onDestroyActionMode(ActionMode mode) {
             actionMode = null;
         }
+
     };
 
 

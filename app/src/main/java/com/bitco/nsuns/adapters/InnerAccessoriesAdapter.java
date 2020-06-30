@@ -43,7 +43,7 @@ public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessori
     @NonNull
     @Override
     public InnerAccessoriesAdapter.InnerAccessoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_set, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_set, parent, false);
         InnerAccessoriesViewHolder vh = new InnerAccessoriesViewHolder(v);
         return vh;
     }

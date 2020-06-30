@@ -15,4 +15,5 @@
     <string name="placeholderDay">Day 4</string>
     <string name="done">Done</string>
     <string name="accessory">Accessory</string>
+    <string name="placeholder_text">Example Text</string>
 </resources>
