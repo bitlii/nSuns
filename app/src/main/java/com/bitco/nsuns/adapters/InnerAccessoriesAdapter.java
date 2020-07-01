@@ -13,6 +13,8 @@ import com.bitco.nsuns.items.RepSet;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessoriesAdapter.InnerAccessoriesViewHolder> {
@@ -25,6 +27,7 @@ public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessori
         private TextView weight;
         private TextView reps;
         private LinearLayout layout;
+        private ConstraintLayout constraintLayout;
 
         public InnerAccessoriesViewHolder(View v) {
             super(v);
@@ -32,6 +35,7 @@ public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessori
             weight = v.findViewById(R.id.weight);
             layout = v.findViewById(R.id.layout);
             reps = v.findViewById(R.id.reps);
+            constraintLayout = v.findViewById(R.id.constraint_layout);
         }
     }
 
@@ -53,7 +57,12 @@ public class InnerAccessoriesAdapter extends RecyclerView.Adapter<InnerAccessori
         RepSet set = repSets.get(position);
         holder.weight.setText(String.valueOf(set.getWeight()));
 
-        holder.percentage.setText("");
+        holder.percentage.setVisibility(View.GONE);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(holder.constraintLayout);
+        constraintSet.connect(R.id.weight, ConstraintSet.BOTTOM, R.id.constraint_layout, ConstraintSet.BOTTOM);
+        constraintSet.centerVertically(R.id.weight, R.id.constraint_layout);
+        constraintSet.applyTo(holder.constraintLayout);
 
         if (set.isAmrap()) {
             holder.reps.setText(set.getReps() + "+");

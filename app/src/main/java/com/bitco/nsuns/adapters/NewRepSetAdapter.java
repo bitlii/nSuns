@@ -46,11 +46,11 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
     @Override
     public NewRepSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        if (viewType == R.layout.card_new_set) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_new_set, parent, false);
+        if (viewType == R.layout.item_new_set) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_set, parent, false);
         }
         else {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_set, parent, false);
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_btn_new_set, parent, false);
         }
         NewRepSetAdapter.NewRepSetViewHolder vh = new NewRepSetViewHolder(v);
         return vh;
@@ -96,7 +96,7 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
 
     @Override
     public int getItemViewType(int position) {
-        return (position == repSets.size()) ? R.layout.item_new_set : R.layout.card_new_set;
+        return (position == repSets.size()) ? R.layout.item_btn_new_set : R.layout.item_new_set;
     }
 
     public ArrayList<RepSet> getRepSets() {
