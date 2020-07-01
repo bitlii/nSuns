@@ -1,19 +1,20 @@
 <resources>
     <string name="app_name">nsuns</string>
-    <string name="currentTrainingMax">Current Training Max</string>
-    <string name="pressName">OHP</string>
-    <string name="squatsName">Squats</string>
-    <string name="deadliftsName">Deadlifts</string>
-    <string name="benchName">Bench Press</string>
-    <string name="frontSquatsName">Front Squats</string>
-    <string name="sumoDeadliftsName">Sumo Deadlifts</string>
-    <string name="closeGripBenchName">CG Bench</string>
-    <string name="unitMetric">kg</string>
+    <string name="text_current_tm">Current Training Max</string>
+    <string name="lift_ohp">OHP</string>
+    <string name="lift_squats">Squats</string>
+    <string name="lift_deadlifts">Deadlifts</string>
+    <string name="lift_bench">Bench Press</string>
+    <string name="lift_front_squats">Front Squats</string>
+    <string name="lift_sumo_deadlift">Sumo Deadlifts</string>
+    <string name="lift_cg_bench">CG Bench</string>
+    <string name="unit_metric">kg</string>
     <string name="firstTime">firstTime</string>
-    <string name="placeholderFloat">122.5</string>
-    <string name="textTrain">Train</string>
-    <string name="placeholderDay">Day 4</string>
+    <string name="float_placeholder">122.5</string>
+    <string name="text_train">Train</string>
+    <string name="day_placeholder">Day 4</string>
     <string name="done">Done</string>
     <string name="accessory">Accessory</string>
-    <string name="placeholder_text">Example Text</string>
+    <string name="text_placeholder">Example Text</string>
+    <string name="current_unit">\@unitMetric</string>
 </resources>

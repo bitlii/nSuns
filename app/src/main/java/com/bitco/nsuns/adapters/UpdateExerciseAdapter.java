@@ -34,7 +34,7 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
         public UpdateExerciseViewHolder(View v) {
             super(v);
-            weightText = v.findViewById(R.id.accessoryName);
+            weightText = v.findViewById(R.id.accessory_name);
             title = v.findViewById(R.id.title);
             changeText = v.findViewById(R.id.change);
             layout = v.findViewById(R.id.layout);

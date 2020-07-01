@@ -26,7 +26,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         public HomeViewHolder(View v) {
             super(v);
             title = v.findViewById(R.id.title);
-            weightText = v.findViewById(R.id.accessoryName);
+            weightText = v.findViewById(R.id.accessory_name);
             unitText = v.findViewById(R.id.unit_text);
             layout = v.findViewById(R.id.layout);
         }
@@ -47,7 +47,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public void onBindViewHolder(@NonNull HomeViewHolder h, int pos) {
         h.title.setText(exercises.get(pos).getName());
         h.weightText.setText(String.valueOf(exercises.get(pos).getTm()));
-        h.unitText.setText(R.string.unitMetric);
+        h.unitText.setText(R.string.unit_metric);
     }
 
     @Override

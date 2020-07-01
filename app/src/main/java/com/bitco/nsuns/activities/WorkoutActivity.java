@@ -18,6 +18,7 @@ import com.bitco.nsuns.items.Workout;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class WorkoutActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class WorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
+
 
         Intent intent = getIntent();
         workout = intent.getParcelableExtra("workout");

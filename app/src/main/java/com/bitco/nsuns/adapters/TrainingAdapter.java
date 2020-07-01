@@ -13,7 +13,9 @@ import com.bitco.nsuns.R;
 import com.bitco.nsuns.activities.WorkoutActivity;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.Workout;
+import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -21,31 +23,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder> {
 
-    private List<Workout> dataset;
+    private ArrayList<Workout> dataset;
 
     public static class TrainingViewHolder extends RecyclerView.ViewHolder {
         public TextView header;
         public TextView exerciseOne;
         public TextView exerciseTwo;
+        public MaterialCardView card;
         public LinearLayout layout;
+        public TextView accessoryCount;
 
         public TrainingViewHolder(View v) {
             super(v);
-            header = v.findViewById(R.id.textHeader);
-            exerciseOne = v.findViewById(R.id.exerciseOne);
-            exerciseTwo = v.findViewById(R.id.exerciseTwo);
+            header = v.findViewById(R.id.header);
+            exerciseOne = v.findViewById(R.id.exercise_one);
+            exerciseTwo = v.findViewById(R.id.exercise_two);
             layout = v.findViewById(R.id.layout);
+            card = v.findViewById(R.id.card);
+            accessoryCount = v.findViewById(R.id.accessory_count);
         }
     }
 
-    public TrainingAdapter(List<Workout> data) {
+    public TrainingAdapter(ArrayList<Workout> data) {
         dataset = data;
     }
 
     @NonNull
     @Override
     public TrainingAdapter.TrainingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_workout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_workout, parent, false);
         TrainingViewHolder vh = new TrainingViewHolder(v);
         return vh;
     }
@@ -59,7 +65,19 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
         exercise = dataset.get(position).getSecondaryExercise();
         holder.exerciseTwo.setText(exercise.getName());
 
-        holder.layout.setOnClickListener(view -> {
+        int workoutAccSize = dataset.get(position).getAccessories().size();
+        if (workoutAccSize == 0) {
+            holder.accessoryCount.setText("");
+        }
+        else if (workoutAccSize == 1) {
+            holder.accessoryCount.setText(workoutAccSize + " accessory");
+        }
+        else {
+            holder.accessoryCount.setText(workoutAccSize + " accessories");
+        }
+
+
+        holder.card.setOnClickListener(view -> {
             Context context = view.getContext();
             Intent intent = new Intent(context, WorkoutActivity.class);
             intent.putExtra("workout", dataset.get(position));

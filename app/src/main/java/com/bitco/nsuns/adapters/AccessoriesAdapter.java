@@ -39,7 +39,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
 
         public AccessoriesViewHolder(View v) {
             super(v);
-            title = v.findViewById(R.id.accessoryName);
+            title = v.findViewById(R.id.accessory_name);
             setCount = v.findViewById(R.id.text_set_count);
             layout = v.findViewById(R.id.layout);
             card = v.findViewById(R.id.card);

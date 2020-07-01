@@ -30,20 +30,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/squatsName"
+                android:text="@string/lift_squats"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/accessoryName"
+                android:id="@+id/accessory_name"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/placeholderFloat"
+                android:text="@string/float_placeholder"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,11 +57,11 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/unitMetric"
+                android:text="@string/unit_metric"
                 android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintBottom_toBottomOf="@+id/accessoryName"
-                app:layout_constraintStart_toEndOf="@+id/accessoryName"
-                app:layout_constraintTop_toTopOf="@+id/accessoryName" />
+                app:layout_constraintBottom_toBottomOf="@+id/accessory_name"
+                app:layout_constraintStart_toEndOf="@+id/accessory_name"
+                app:layout_constraintTop_toTopOf="@+id/accessory_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

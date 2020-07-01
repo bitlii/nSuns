@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,14 +28,18 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
 
     public static class NewRepSetViewHolder extends RecyclerView.ViewHolder {
         private Button button;
-        private TextView textWeight;
-        private TextView textReps;
+        private TextView weight;
+        private TextView percentage;
+        private TextView reps;
+        private ConstraintLayout constraintLayout;
 
         public NewRepSetViewHolder(View v) {
             super(v);
             button = v.findViewById(R.id.button_new_set);
-            textWeight = v.findViewById(R.id.textWeight);
-            textReps = v.findViewById(R.id.textReps);
+            weight = v.findViewById(R.id.weight);
+            percentage = v.findViewById(R.id.percentage);
+            reps = v.findViewById(R.id.reps);
+            constraintLayout = v.findViewById(R.id.constraint_layout);
 
         }
     }
@@ -46,8 +52,8 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
     @Override
     public NewRepSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        if (viewType == R.layout.item_new_set) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_set, parent, false);
+        if (viewType == R.layout.item_set) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_set, parent, false);
         }
         else {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_btn_new_set, parent, false);
@@ -70,8 +76,15 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
             });
         }
         else {
-            holder.textWeight.setText(String.valueOf(repSets.get(position).getWeight()));
-            holder.textReps.setText(String.valueOf(repSets.get(position).getReps()));
+            holder.weight.setText(String.valueOf(repSets.get(position).getWeight()));
+            holder.reps.setText(String.valueOf(repSets.get(position).getReps()));
+            holder.percentage.setVisibility(View.GONE);
+
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(holder.constraintLayout);
+            constraintSet.connect(R.id.weight, ConstraintSet.BOTTOM, R.id.constraint_layout, ConstraintSet.BOTTOM);
+            constraintSet.centerVertically(R.id.weight, R.id.constraint_layout);
+            constraintSet.applyTo(holder.constraintLayout);
         }
     }
 
@@ -96,7 +109,7 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
 
     @Override
     public int getItemViewType(int position) {
-        return (position == repSets.size()) ? R.layout.item_btn_new_set : R.layout.item_new_set;
+        return (position == repSets.size()) ? R.layout.item_btn_new_set : R.layout.item_set;
     }
 
     public ArrayList<RepSet> getRepSets() {
