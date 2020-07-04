@@ -39,6 +39,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         workout = intent.getParcelableExtra("workout");
+
         primaryExercise = workout.getPrimaryExercise();
         secondaryExercise = workout.getSecondaryExercise();
 
@@ -102,6 +103,11 @@ public class WorkoutActivity extends AppCompatActivity {
 
     public void finishAddAccessory(Exercise e) {
         workout.getAccessories().add(e);
+        db.updateWorkoutAccessories(workout);
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AccessoriesFragment(workout)).commit();
+    }
+
+    public void finishEditAccessory() {
         db.updateWorkoutAccessories(workout);
         getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AccessoriesFragment(workout)).commit();
     }

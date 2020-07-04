@@ -23,12 +23,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NewAccessoryFragment extends Fragment {
 
+    private boolean isEditMode = false;
+    private Exercise accessory;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     public NewAccessoryFragment() {
         super();
+    }
+
+    public NewAccessoryFragment(Exercise e) {
+        super();
+        this.accessory = e;
+        this.isEditMode = true;
     }
 
     @Nullable
@@ -39,19 +48,34 @@ public class NewAccessoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        rAdapter = new NewRepSetAdapter();
-        recyclerView.setAdapter(rAdapter);
+
         EditText editName = view.findViewById(R.id.editName);
+        if (isEditMode) {
+            editName.setText(accessory.getName());
+            rAdapter = new NewRepSetAdapter(accessory);
+            recyclerView.setAdapter(rAdapter);
+        }
+        else {
+            rAdapter = new NewRepSetAdapter();
+            recyclerView.setAdapter(rAdapter);
+        }
 
         ((Button) view.findViewById(R.id.buttonFinish)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<RepSet> repSets = ((NewRepSetAdapter) getrAdapter()).getRepSets();
                 String name = editName.getText().toString();
+                if (!isEditMode) {
+                    ArrayList<RepSet> repSets = ((NewRepSetAdapter) getrAdapter()).getRepSets();
+                    Exercise e = new Exercise(name, repSets);
+                    WorkoutActivity activity = (WorkoutActivity) getActivity();
+                    activity.finishAddAccessory(e);
+                }
+                else {
+                    accessory.setName(name);
+                    WorkoutActivity activity = (WorkoutActivity) getActivity();
+                    activity.finishEditAccessory();
+                }
 
-                Exercise e = new Exercise(name, repSets);
-                WorkoutActivity activity = (WorkoutActivity) getActivity();
-                activity.finishAddAccessory(e);
             }
         });
 

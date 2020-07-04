@@ -56,6 +56,9 @@ public class Exercise implements Parcelable {
         this.updateRepSets();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     // Parcelables
     public Exercise(Parcel source) {

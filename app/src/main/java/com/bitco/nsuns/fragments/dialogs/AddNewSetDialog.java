@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 
 import com.bitco.nsuns.R;
@@ -17,21 +18,41 @@ import androidx.fragment.app.DialogFragment;
 
 public class AddNewSetDialog extends DialogFragment {
 
+    private boolean editMode = false;
+    private float currentWeight;
+    private int currentReps;
+    private int position;
+
+    public AddNewSetDialog() {
+        super();
+    }
+
+    public AddNewSetDialog(int position, float currentWeight, int currentReps) {
+        super();
+        this.editMode = true;
+        this.position = position;
+        this.currentWeight = currentWeight;
+        this.currentReps = currentReps;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_new_repset, null);
+        builder.setView(view);
 
-        builder.setView(inflater.inflate(R.layout.dialog_new_repset, null));
         builder.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 NewAccessoryFragment fragment = (NewAccessoryFragment) getFragmentManager().findFragmentById(R.id.layout);
                 DialogFragmentListener frag = (DialogFragmentListener) fragment.getrAdapter();
                 Bundle bundle = new Bundle();
+                bundle.putBoolean("editMode", editMode);
                 bundle.putFloat("weight", Float.parseFloat(((EditText)getDialog().findViewById(R.id.editWeight)).getText().toString()));
                 bundle.putInt("reps", Integer.parseInt(((EditText)getDialog().findViewById(R.id.editReps)).getText().toString()));
+                bundle.putInt("pos", position);
                 frag.onReturnBundle(bundle);
             }
         });
@@ -42,7 +63,12 @@ public class AddNewSetDialog extends DialogFragment {
             }
         });
 
+        if (editMode) {
+            ((EditText) view.findViewById(R.id.editWeight)).setText(String.valueOf(currentWeight));
+            ((EditText) view.findViewById(R.id.editReps)).setText(String.valueOf(currentReps));
+        }
 
         return builder.create();
     }
+
 }

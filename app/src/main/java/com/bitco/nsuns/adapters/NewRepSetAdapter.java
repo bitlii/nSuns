@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.fragments.dialogs.AddNewSetDialog;
+import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.RepSet;
 import com.bitco.nsuns.listeners.DialogFragmentListener;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewRepSetViewHolder> implements DialogFragmentListener {
 
     private ArrayList<RepSet> repSets;
+    private boolean editMode = false;
 
     public static class NewRepSetViewHolder extends RecyclerView.ViewHolder {
         private Button button;
@@ -32,6 +35,7 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
         private TextView percentage;
         private TextView reps;
         private ConstraintLayout constraintLayout;
+        private MaterialCardView card;
 
         public NewRepSetViewHolder(View v) {
             super(v);
@@ -40,12 +44,19 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
             percentage = v.findViewById(R.id.percentage);
             reps = v.findViewById(R.id.reps);
             constraintLayout = v.findViewById(R.id.constraint_layout);
+            card = v.findViewById(R.id.card);
 
         }
     }
 
     public NewRepSetAdapter() {
         this.repSets = new ArrayList<>();
+    }
+
+    // Edit Accessories
+    public NewRepSetAdapter(Exercise accessory) {
+        this.repSets = accessory.getSets();
+        this.editMode = true;
     }
 
     @NonNull
@@ -85,6 +96,13 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
             constraintSet.connect(R.id.weight, ConstraintSet.BOTTOM, R.id.constraint_layout, ConstraintSet.BOTTOM);
             constraintSet.centerVertically(R.id.weight, R.id.constraint_layout);
             constraintSet.applyTo(holder.constraintLayout);
+
+            holder.card.setOnClickListener(view -> {
+                DialogFragment newFrag = new AddNewSetDialog(position, repSets.get(position).getWeight(), repSets.get(position).getReps());
+                Context context = view.getContext();
+                newFrag.show(((AppCompatActivity)context).getSupportFragmentManager(), "Edit Set");
+            });
+
         }
     }
 
@@ -95,10 +113,18 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
     public void onReturnBundle(Bundle bundle) {
         float weight = bundle.getFloat("weight");
         int reps = bundle.getInt("reps");
-
-        RepSet repset = new RepSet(weight, reps);
-        repSets.add(repset);
-        notifyDataSetChanged();
+        boolean isEditMode = bundle.getBoolean("editMode");
+        int pos = bundle.getInt("pos");
+        if (isEditMode) {
+            RepSet repSet = repSets.get(pos);
+            repSet.setWeight(weight);
+            repSet.setReps(reps);
+        }
+        else {
+            RepSet repset = new RepSet(weight, reps);
+            repSets.add(repset);
+        }
+        notifyItemChanged(pos);
     }
 
 

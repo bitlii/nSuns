@@ -1,5 +1,6 @@
 package com.bitco.nsuns.adapters;
 
+import android.content.Intent;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -7,11 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.database.DatabaseHandler;
+import com.bitco.nsuns.fragments.NewAccessoryFragment;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.Workout;
 import com.google.android.material.card.MaterialCardView;
@@ -19,6 +23,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +41,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         private LinearLayout layout;
         private MaterialCardView card;
         private RecyclerView recycler;
+        private ImageView overflowButton;
 
         public AccessoriesViewHolder(View v) {
             super(v);
@@ -44,6 +50,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             layout = v.findViewById(R.id.layout);
             card = v.findViewById(R.id.card);
             recycler = v.findViewById(R.id.recycler);
+            overflowButton = v.findViewById(R.id.overflow_menu);
         }
     }
 
@@ -89,6 +96,27 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         });
 
         holder.recycler.setAdapter(adapter);
+
+        holder.overflowButton.setOnClickListener(view1 -> {
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), holder.overflowButton);
+            popupMenu.getMenuInflater().inflate(R.menu.menu_accessory_details, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch(item.getItemId()) {
+                        case R.id.edit:
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.layout, new NewAccessoryFragment(accessory)).commit();
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+            popupMenu.show();
+
+        });
     }
 
     @Override
