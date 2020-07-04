@@ -1,11 +1,13 @@
 package com.bitco.nsuns.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
@@ -36,6 +38,7 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
         private TextView reps;
         private ConstraintLayout constraintLayout;
         private MaterialCardView card;
+        private ImageView delete;
 
         public NewRepSetViewHolder(View v) {
             super(v);
@@ -45,7 +48,7 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
             reps = v.findViewById(R.id.reps);
             constraintLayout = v.findViewById(R.id.constraint_layout);
             card = v.findViewById(R.id.card);
-
+            delete = v.findViewById(R.id.button_delete);
         }
     }
 
@@ -63,8 +66,8 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
     @Override
     public NewRepSetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        if (viewType == R.layout.item_set) {
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_set, parent, false);
+        if (viewType == R.layout.item_new_set) {
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_set, parent, false);
         }
         else {
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_btn_new_set, parent, false);
@@ -103,7 +106,13 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
                 newFrag.show(((AppCompatActivity)context).getSupportFragmentManager(), "Edit Set");
             });
 
+            holder.delete.setOnClickListener(view -> {
+                repSets.remove(position);
+                notifyItemRemoved(position);
+            });
         }
+
+
     }
 
     @Override
@@ -135,7 +144,7 @@ public class NewRepSetAdapter extends RecyclerView.Adapter<NewRepSetAdapter.NewR
 
     @Override
     public int getItemViewType(int position) {
-        return (position == repSets.size()) ? R.layout.item_btn_new_set : R.layout.item_set;
+        return (position == repSets.size()) ? R.layout.item_btn_new_set : R.layout.item_new_set;
     }
 
     public ArrayList<RepSet> getRepSets() {

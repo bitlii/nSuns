@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="Create a new set:"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="24sp" />
 
-    <LinearLayout
-        android:id="@+id/childLayout"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_below="@+id/textMessage"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingRight="32dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="61dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Weight" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editWeight"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="21"
-            android:ems="10"
-            android:inputType="numberDecimal" />
+            android:hint="Weight" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Reps" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayout2"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingRight="32dp">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editReps"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="21"
-            android:ems="10"
-            android:inputType="number" />
-    </LinearLayout>
+            android:hint="Reps" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+</RelativeLayout>

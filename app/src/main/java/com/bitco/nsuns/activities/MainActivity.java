@@ -47,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_train:
                 selectedFragment = new TrainingFragment();
                 break;
+                /**
             case R.id.nav_stats:
                 selectedFragment = new StatsFragment();
-                break;
+                break; */
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layout, selectedFragment).commit();

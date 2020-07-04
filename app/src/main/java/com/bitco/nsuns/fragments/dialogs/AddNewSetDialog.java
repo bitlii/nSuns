@@ -11,6 +11,9 @@ import android.widget.EditText;
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.fragments.NewAccessoryFragment;
 import com.bitco.nsuns.listeners.DialogFragmentListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,8 +53,8 @@ public class AddNewSetDialog extends DialogFragment {
                 DialogFragmentListener frag = (DialogFragmentListener) fragment.getrAdapter();
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("editMode", editMode);
-                bundle.putFloat("weight", Float.parseFloat(((EditText)getDialog().findViewById(R.id.editWeight)).getText().toString()));
-                bundle.putInt("reps", Integer.parseInt(((EditText)getDialog().findViewById(R.id.editReps)).getText().toString()));
+                bundle.putFloat("weight", Float.parseFloat(((TextInputEditText)getDialog().findViewById(R.id.editWeight)).getText().toString()));
+                bundle.putInt("reps", Integer.parseInt(((TextInputEditText)getDialog().findViewById(R.id.editReps)).getText().toString()));
                 bundle.putInt("pos", position);
                 frag.onReturnBundle(bundle);
             }
@@ -64,11 +67,10 @@ public class AddNewSetDialog extends DialogFragment {
         });
 
         if (editMode) {
-            ((EditText) view.findViewById(R.id.editWeight)).setText(String.valueOf(currentWeight));
-            ((EditText) view.findViewById(R.id.editReps)).setText(String.valueOf(currentReps));
+            ((TextInputEditText) view.findViewById(R.id.editWeight)).setText(String.valueOf(currentWeight));
+            ((TextInputEditText) view.findViewById(R.id.editReps)).setText(String.valueOf(currentReps));
         }
 
         return builder.create();
     }
-
 }

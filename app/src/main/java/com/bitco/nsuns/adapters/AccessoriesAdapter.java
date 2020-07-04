@@ -1,10 +1,6 @@
 package com.bitco.nsuns.adapters;
 
-import android.content.Intent;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +27,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
 
     private Workout workout;
     private ArrayList<Exercise> accessories;
-    private Exercise selectedAccessory;
     private View view;
-    private ActionMode actionMode = null;
 
     public static class AccessoriesViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
@@ -85,15 +79,6 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                 holder.recycler.setVisibility(View.GONE);
             }
         });
-        holder.card.setOnLongClickListener(view1 -> {
-            if (actionMode != null) {
-                return false;
-            }
-            actionMode = view.startActionMode(actionModeCallBack);
-            view.setSelected(true);
-            selectedAccessory = accessory;
-            return true;
-        });
 
         holder.recycler.setAdapter(adapter);
 
@@ -109,6 +94,14 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
                             activity.getSupportFragmentManager().beginTransaction().replace(R.id.layout, new NewAccessoryFragment(accessory)).commit();
                             break;
+                        case R.id.delete:
+                            accessories.remove(accessory);
+                            workout.getAccessories().remove(accessory);
+                            DatabaseHandler db = new DatabaseHandler(view.getContext());
+                            db.updateWorkoutAccessories(workout);
+                            db.close();
+                            notifyItemRemoved(position);
+                            break;
                     }
                     return true;
                 }
@@ -123,47 +116,6 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     public int getItemCount() {
         return accessories.size();
     }
-
-    private ActionMode.Callback actionModeCallBack = new ActionMode.Callback() {
-
-        @Override
-        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-            MenuInflater inflater = actionMode.getMenuInflater();
-            inflater.inflate(R.menu.menu_context_exercise, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-            switch(menuItem.getItemId()) {
-                case R.id.delete:
-                    accessories.remove(selectedAccessory);
-                    workout.getAccessories().remove(selectedAccessory);
-
-                    DatabaseHandler db = new DatabaseHandler(view.getContext());
-                    db.updateWorkoutAccessories(workout);
-                    db.close();
-
-                    actionMode.finish();
-                    notifyDataSetChanged();
-                    return true;
-                default:
-                    return false;
-
-            }
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            actionMode = null;
-        }
-
-    };
 
 
 }
