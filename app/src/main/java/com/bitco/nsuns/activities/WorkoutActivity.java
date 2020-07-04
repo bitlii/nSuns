@@ -45,8 +45,8 @@ public class WorkoutActivity extends AppCompatActivity {
         db = new DatabaseHandler(this);
 
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.getTabAt(0).setText(workout.getPrimaryExercise().getName());
-        tabLayout.getTabAt(1).setText(workout.getSecondaryExercise().getName());
+        tabLayout.getTabAt(0).setText(primaryExercise.getName());
+        tabLayout.getTabAt(1).setText(secondaryExercise.getName());
         tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layout, new MainWorkoutFragment(primaryExercise)).commit();
