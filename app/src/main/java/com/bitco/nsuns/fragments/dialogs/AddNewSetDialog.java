@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.fragments.NewAccessoryFragment;
@@ -67,6 +68,7 @@ public class AddNewSetDialog extends DialogFragment {
         });
 
         if (editMode) {
+            ((TextView) view.findViewById(R.id.textMessage)).setText("Edit Set");
             ((TextInputEditText) view.findViewById(R.id.editWeight)).setText(String.valueOf(currentWeight));
             ((TextInputEditText) view.findViewById(R.id.editReps)).setText(String.valueOf(currentReps));
         }

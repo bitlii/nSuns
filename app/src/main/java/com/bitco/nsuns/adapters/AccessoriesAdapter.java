@@ -90,7 +90,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                     switch(item.getItemId()) {
                         case R.id.edit:
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame, new NewAccessoryFragment()).addToBackStack("Main").commit();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame, new NewAccessoryFragment(accessory)).addToBackStack("Main").commit();
                             break;
                         case R.id.delete:
                             accessories.remove(accessory);

@@ -31,6 +31,7 @@
         android:layout_marginBottom="16dp"
         android:onClick="finishTraining"
         android:text="Done"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/back" />
@@ -44,6 +45,7 @@
         android:layout_marginBottom="16dp"
         android:onClick="back"
         android:text="Back"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/done"
         app:layout_constraintStart_toStartOf="parent" />

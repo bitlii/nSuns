@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.activities.WorkoutActivity;
@@ -55,6 +56,7 @@ public class NewAccessoryFragment extends Fragment {
 
         EditText editName = view.findViewById(R.id.editName);
         if (isEditMode) {
+            ((TextView) view.findViewById(R.id.header)).setText("Edit Accessory");
             editName.setText(accessory.getName());
             rAdapter = new NewRepSetAdapter(accessory);
             recyclerView.setAdapter(rAdapter);
