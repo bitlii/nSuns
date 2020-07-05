@@ -8,5 +8,7 @@
         android:id="@+id/button_new_set"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:insetLeft="16dp"
+        android:insetRight="16dp"
         android:text="New Set" />
 </LinearLayout>

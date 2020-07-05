@@ -22,13 +22,11 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         private TextView percentage;
         private TextView weight;
         private TextView reps;
-        private LinearLayout layout;
 
         public WorkoutViewHolder(View v) {
             super(v);
             percentage = v.findViewById(R.id.percentage);
             weight = v.findViewById(R.id.weight);
-            layout = v.findViewById(R.id.layout);
             reps = v.findViewById(R.id.reps);
         }
     }

@@ -13,13 +13,18 @@ import com.bitco.nsuns.database.DatabaseHandler;
 import com.bitco.nsuns.fragments.AccessoriesFragment;
 import com.bitco.nsuns.fragments.MainWorkoutFragment;
 import com.bitco.nsuns.fragments.NewAccessoryFragment;
+import com.bitco.nsuns.fragments.WorkoutFragment;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.Workout;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class WorkoutActivity extends AppCompatActivity {
 
@@ -28,8 +33,6 @@ public class WorkoutActivity extends AppCompatActivity {
     Workout workout;
     Exercise primaryExercise;
     Exercise secondaryExercise;
-
-    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,40 +48,10 @@ public class WorkoutActivity extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
 
-        tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.getTabAt(0).setText(primaryExercise.getName());
-        tabLayout.getTabAt(1).setText(secondaryExercise.getName());
-        tabLayout.addOnTabSelectedListener(tabSelectedListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout)).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new MainWorkoutFragment(primaryExercise)).commit();
     }
 
-    private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            Fragment selectedFragment = null;
-            switch (tab.getPosition()) {
-                case 0:
-                    selectedFragment = new MainWorkoutFragment(primaryExercise);
-                    break;
-                case 1:
-                    selectedFragment = new MainWorkoutFragment(secondaryExercise);
-                    break;
-                case 2:
-                    selectedFragment = new AccessoriesFragment(workout);
-                    break;
-            }
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.layout, selectedFragment).commit();
-
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) { }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) { }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,18 +71,18 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     public void addAccessory(View v) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new NewAccessoryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new NewAccessoryFragment()).addToBackStack("Main").commit();
     }
 
     public void finishAddAccessory(Exercise e) {
         workout.getAccessories().add(e);
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AccessoriesFragment(workout)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout)).commit();
     }
 
     public void finishEditAccessory() {
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AccessoriesFragment(workout)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout)).commit();
     }
 
 }

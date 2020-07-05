@@ -32,7 +32,6 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     public static class AccessoriesViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView setCount;
-        private LinearLayout layout;
         private MaterialCardView card;
         private RecyclerView recycler;
         private ImageView overflowButton;
@@ -41,7 +40,6 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             super(v);
             title = v.findViewById(R.id.accessory_name);
             setCount = v.findViewById(R.id.text_set_count);
-            layout = v.findViewById(R.id.layout);
             card = v.findViewById(R.id.card);
             recycler = v.findViewById(R.id.recycler);
             overflowButton = v.findViewById(R.id.overflow_menu);
@@ -92,7 +90,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
                     switch(item.getItemId()) {
                         case R.id.edit:
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.layout, new NewAccessoryFragment(accessory)).commit();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame, new NewAccessoryFragment()).addToBackStack("Main").commit();
                             break;
                         case R.id.delete:
                             accessories.remove(accessory);
