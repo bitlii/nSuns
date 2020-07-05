@@ -14,10 +14,12 @@ import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.RepSet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,11 +81,31 @@ public class NewAccessoryFragment extends Fragment {
             }
         });
 
+        ItemTouchHelper helper = new ItemTouchHelper(simpleCallback);
+        helper.attachToRecyclerView(recyclerView);
+
         return view;
     }
 
     public RecyclerView.Adapter getrAdapter() {
         return rAdapter;
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            int fromPos = viewHolder.getAdapterPosition();
+            int toPos = target.getAdapterPosition();
+
+            Collections.swap(accessory.getSets(), fromPos, toPos);
+            rAdapter.notifyItemMoved(fromPos, toPos);
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 
 }

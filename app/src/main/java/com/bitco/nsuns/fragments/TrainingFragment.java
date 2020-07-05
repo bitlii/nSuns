@@ -2,7 +2,9 @@ package com.bitco.nsuns.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,9 +18,11 @@ import com.bitco.nsuns.database.DatabaseHandler;
 import com.bitco.nsuns.items.Workout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TrainingFragment extends Fragment {
     private DatabaseHandler db;
+    ArrayList<Workout> workouts;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rAdapter;
@@ -30,12 +34,12 @@ public class TrainingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_training, container, false);
 
         db = new DatabaseHandler(getContext());
-        ArrayList<Workout> data = db.getAllWorkouts();
+        workouts = db.getAllWorkouts();
 
         recyclerView = view.findViewById(R.id.workoutList);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        rAdapter = new TrainingAdapter(data);
+        rAdapter = new TrainingAdapter(workouts);
         recyclerView.setAdapter(rAdapter);
 
         return view;
@@ -46,5 +50,6 @@ public class TrainingFragment extends Fragment {
         rAdapter = new TrainingAdapter(newWorkouts);
         recyclerView.setAdapter(rAdapter);
     }
+
 
 }
