@@ -28,13 +28,15 @@ public class TrainingFragment extends Fragment {
     private RecyclerView.Adapter rAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    public TrainingFragment(ArrayList<Workout> workouts) {
+        super();
+        this.workouts = workouts;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_training, container, false);
-
-        db = new DatabaseHandler(getContext());
-        workouts = db.getAllWorkouts();
 
         recyclerView = view.findViewById(R.id.workoutList);
         layoutManager = new LinearLayoutManager(view.getContext());
@@ -46,7 +48,8 @@ public class TrainingFragment extends Fragment {
     }
 
     public void updateData() {
-        ArrayList<Workout> newWorkouts = db.getAllWorkouts() ;
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        ArrayList<Workout> newWorkouts = db.getAllWorkouts();
         rAdapter = new TrainingAdapter(newWorkouts);
         recyclerView.setAdapter(rAdapter);
     }

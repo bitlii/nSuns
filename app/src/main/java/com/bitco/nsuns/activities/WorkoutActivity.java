@@ -10,21 +10,12 @@ import android.view.View;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.database.DatabaseHandler;
-import com.bitco.nsuns.fragments.AccessoriesFragment;
-import com.bitco.nsuns.fragments.MainWorkoutFragment;
 import com.bitco.nsuns.fragments.NewAccessoryFragment;
 import com.bitco.nsuns.fragments.WorkoutFragment;
 import com.bitco.nsuns.items.Exercise;
 import com.bitco.nsuns.items.Workout;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 public class WorkoutActivity extends AppCompatActivity {
 
@@ -38,7 +29,6 @@ public class WorkoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-
 
         Intent intent = getIntent();
         workout = intent.getParcelableExtra("workout");
@@ -70,6 +60,14 @@ public class WorkoutActivity extends AppCompatActivity {
         return true;
     }
 
+    /*
+        Methods used by buttons.
+     */
+
+    /**
+     * Launch and replace the current fragment with a new accessory fragment.
+     * @param v
+     */
     public void addAccessory(View v) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, new NewAccessoryFragment()).addToBackStack("Main").commit();
     }
@@ -77,12 +75,12 @@ public class WorkoutActivity extends AppCompatActivity {
     public void finishAddAccessory(Exercise e) {
         workout.getAccessories().add(e);
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout, 2)).commit();
     }
 
     public void finishEditAccessory() {
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout, 2)).commit();
     }
 
 }

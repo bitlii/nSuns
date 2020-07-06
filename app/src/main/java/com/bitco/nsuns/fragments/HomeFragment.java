@@ -21,20 +21,21 @@ import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {
-    public DatabaseHandler db;
     private ArrayList<Exercise> exercises;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    public HomeFragment(ArrayList<Exercise> exercises) {
+        super();
+        this.exercises = exercises;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        db = new DatabaseHandler(getContext());
-        exercises = db.getPrimaryExerciseList();
 
         recyclerView = view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(view.getContext());

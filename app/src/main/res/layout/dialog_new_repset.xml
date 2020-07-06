@@ -28,13 +28,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:paddingRight="32dp">
+        android:paddingRight="32dp"
+        app:boxBackgroundMode="filled">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Weight" />
+            android:hint="Weight"
+            android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,13 +47,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:paddingRight="32dp">
+        android:paddingRight="32dp"
+        app:boxBackgroundMode="filled">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editReps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Reps" />
+            android:hint="Reps"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

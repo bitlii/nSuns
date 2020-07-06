@@ -35,10 +35,18 @@ public class WorkoutFragment extends Fragment {
     WorkoutPagerAdapter workoutPagerAdapter;
 
     private TabLayout tabLayout;
+    private int tabPos;
 
     public WorkoutFragment(Workout workout) {
         super();
         this.workout = workout;
+        this.tabPos = 0;
+    }
+
+    public WorkoutFragment(Workout workout, int tabPos) {
+        super();
+        this.workout = workout;
+        this.tabPos = tabPos;
     }
 
     @Override
@@ -68,6 +76,8 @@ public class WorkoutFragment extends Fragment {
             }
 
         }).attach();
+
+        pager.setCurrentItem(tabPos);
 
         return view;
     }
@@ -102,4 +112,7 @@ public class WorkoutFragment extends Fragment {
         }
     }
 
+    public ViewPager2 getPager() {
+        return pager;
+    }
 }

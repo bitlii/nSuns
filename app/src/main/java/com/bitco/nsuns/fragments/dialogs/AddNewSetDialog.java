@@ -42,30 +42,23 @@ public class AddNewSetDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_new_repset, null);
         builder.setView(view);
 
-        builder.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                NewAccessoryFragment fragment = (NewAccessoryFragment) getFragmentManager().findFragmentById(R.id.layout);
-                DialogFragmentListener frag = (DialogFragmentListener) fragment.getrAdapter();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("editMode", editMode);
-                bundle.putFloat("weight", Float.parseFloat(((TextInputEditText)getDialog().findViewById(R.id.editWeight)).getText().toString()));
-                bundle.putInt("reps", Integer.parseInt(((TextInputEditText)getDialog().findViewById(R.id.editReps)).getText().toString()));
-                bundle.putInt("pos", position);
-                frag.onReturnBundle(bundle);
-            }
+        builder.setPositiveButton("Finish", (dialogInterface, i) -> {
+            NewAccessoryFragment fragment = (NewAccessoryFragment) getFragmentManager().findFragmentById(R.id.frame);
+            DialogFragmentListener frag = (DialogFragmentListener) fragment.getrAdapter();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("editMode", editMode);
+            bundle.putFloat("weight", Float.parseFloat(((TextInputEditText)getDialog().findViewById(R.id.editWeight)).getText().toString()));
+            bundle.putInt("reps", Integer.parseInt(((TextInputEditText)getDialog().findViewById(R.id.editReps)).getText().toString()));
+            bundle.putInt("pos", position);
+            frag.onReturnBundle(bundle);
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                AddNewSetDialog.this.getDialog().cancel();
-            }
-        });
+
+        builder.setNegativeButton("Cancel", (dialogInterface, i) -> AddNewSetDialog.this.getDialog().cancel());
 
         if (editMode) {
             ((TextView) view.findViewById(R.id.textMessage)).setText("Edit Set");

@@ -111,7 +111,7 @@ public class Templates {
 
     public static ArrayList<Exercise> create4DaySecondaryExercises(float dlTm, float squatTm, float benchTm) {
         ArrayList<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise("Bench 2", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm));
+        exercises.add(new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm));
         exercises.add(new Exercise("Front Squat", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm));
         exercises.add(new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
         exercises.add(new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm));
