@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="nsuns" >
+        <ListPreference
+            android:entries="@array/templates"
+            android:entryValues="@array/templates"
+            android:key="template"
+            android:title="Current Template"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

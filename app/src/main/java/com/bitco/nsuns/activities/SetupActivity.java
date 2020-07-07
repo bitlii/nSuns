@@ -1,6 +1,7 @@
 package com.bitco.nsuns.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,7 +38,6 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         templateSpinner.setAdapter(adapter);
         templateSpinner.setOnItemSelectedListener(this);
-
 
     }
 
