@@ -53,60 +53,36 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void finishSetup(View v) {
+        DatabaseHandler db = new DatabaseHandler(this);
+
         float squatsTm = Float.parseFloat(((EditText) findViewById(R.id.editMax)).getText().toString());
         float dlTm = Float.parseFloat(((EditText) findViewById(R.id.editMax1)).getText().toString());
         float benchTm = Float.parseFloat(((EditText) findViewById(R.id.editMax2)).getText().toString());
         float ohpTm = Float.parseFloat(((EditText) findViewById(R.id.editMax3)).getText().toString());
 
-        DatabaseHandler db = new DatabaseHandler(this);
+        db.insertMainLift("Squat", squatsTm);
+        db.insertMainLift("Deadlift", dlTm);
+        db.insertMainLift("Bench", benchTm);
+        db.insertMainLift("OHP", ohpTm);
 
         ArrayList<Workout> workouts = new ArrayList<>();
-        Workout w;
 
         switch(selectedTemplate) {
             case "4-day":
-                workouts = Templates.create4dayWorkouts(dlTm, squatsTm, benchTm, ohpTm);
-
-                w = workouts.get(0);
-                db.insertPrimaryExercise(w.getSecondaryExercise());
-                db.insertSecondaryExercise(w.getPrimaryExercise(), "Bench M");
-
-                w = workouts.get(1);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Deadlift M");
-
-                w = workouts.get(2);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
-
-                w = workouts.get(3);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Squat M");
-
+                workouts = Templates.create4day(dlTm, squatsTm, benchTm, ohpTm);
+                String[] mainArray = { "Bench", "OHP", "Squat", "Deadlift", "Bench", "Bench", "Deadlift", "Squat" };
+                for (int i=0; i<workouts.size(); i++) {
+                    Workout w = workouts.get(i);
+                    db.insertExercise(w.getPrimaryExercise(), mainArray[i * 2]);
+                    w.getPrimaryExercise().setId(db.getExerciseId(w.getPrimaryExercise()));
+                    db.insertExercise(w.getSecondaryExercise(), mainArray[i * 2 + 1]);
+                    w.getSecondaryExercise().setId(db.getExerciseId(w.getSecondaryExercise()));
+                    db.insertWorkout(w);
+                }
                 break;
 
             case "5-day":
                 workouts = Templates.create5day(dlTm, squatsTm, benchTm, ohpTm);
-
-                w = workouts.get(0);
-                db.insertSecondaryExercise(w.getPrimaryExercise(), "Bench M");
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "OHP M");
-
-                w = workouts.get(1);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Deadlift M");
-
-                w = workouts.get(2);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
-
-                w = workouts.get(3);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Squat M");
-
-                w = workouts.get(4);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
 
                 break;
 
@@ -114,67 +90,14 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 workouts = Templates.create6dayDeadlift(dlTm, squatsTm, benchTm, ohpTm);
 
-                w = workouts.get(0);
-                db.insertSecondaryExercise(w.getPrimaryExercise(), "Bench M");
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "OHP M");
-
-                w = workouts.get(1);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Deadlift M");
-
-                w = workouts.get(2);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
-
-                w = workouts.get(3);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Squat M");
-
-                w = workouts.get(4);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
-
-                w = workouts.get(5);
-                db.insertSecondaryExercise(w.getPrimaryExercise(), "Deadlift M");
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Squat M");
-
                 break;
 
             case "6-day squat":
 
                 workouts = Templates.create6daySquat(dlTm, squatsTm, benchTm, ohpTm);
 
-                w = workouts.get(0);
-                db.insertSecondaryExercise(w.getPrimaryExercise(), "Bench M");
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "OHP M");
-
-                w = workouts.get(1);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Deadlift M");
-
-                w = workouts.get(2);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
-
-                w = workouts.get(3);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Squat M");
-
-                w = workouts.get(4);
-                db.insertPrimaryExercise(w.getPrimaryExercise());
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Bench M");
-
-                w = workouts.get(5);
-                db.insertSecondaryExercise(w.getPrimaryExercise(), "Squat M");
-                db.insertSecondaryExercise(w.getSecondaryExercise(), "Deadlift M");
-
                 break;
         }
-
-        for (Workout wo : workouts) {
-            db.insertWorkout(wo);
-        }
-
 
         db.close();
 

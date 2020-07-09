@@ -7,16 +7,27 @@ import java.util.ArrayList;
 
 public class Exercise implements Parcelable {
 
+    private int id;
     private String name;
     private ArrayList<RepSet> sets;
     private float tm;
 
     public Exercise(String name, ArrayList<RepSet> sets, float tm) {
+        this.id = -1;
         this.name = name;
         this.sets = sets;
         this.tm = tm;
         this.updateRepSets();
     }
+
+    public Exercise(int id, String name, ArrayList<RepSet> sets, float tm) {
+        this.id = id;
+        this.name = name;
+        this.sets = sets;
+        this.tm = tm;
+        this.updateRepSets();
+    }
+
 
     /**
      * Constructor for a new Exercise object. This is mainly used for accessories where the TM
@@ -25,6 +36,7 @@ public class Exercise implements Parcelable {
      * @param sets the arraylist of RepSets that represent the exercise.
      */
     public Exercise(String name, ArrayList<RepSet> sets) {
+        this.id = -1;
         this.name = name;
         this.sets = sets;
         this.tm = 0;
@@ -37,6 +49,14 @@ public class Exercise implements Parcelable {
         for (RepSet set : sets) {
             set.calculateWeight(this.tm);
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -62,6 +82,7 @@ public class Exercise implements Parcelable {
 
     // Parcelables
     public Exercise(Parcel source) {
+        this.id = source.readInt();
         this.name = source.readString();
         this.sets = new ArrayList<>();
         source.readList(this.sets, RepSet.class.getClassLoader());
@@ -75,6 +96,7 @@ public class Exercise implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeList(sets);
         dest.writeFloat(tm);

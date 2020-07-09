@@ -3,6 +3,7 @@ package com.bitco.nsuns.adapters;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAdapter.UpdateExerciseViewHolder> implements DialogFragmentListener {
 
     private ArrayList<Exercise> dataset;
+    ArrayList<Pair<String, Float>> mainLifts;
     private ArrayList<Float> selectedChanges;
 
     public static class UpdateExerciseViewHolder extends RecyclerView.ViewHolder {
@@ -41,10 +43,10 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
         }
     }
 
-    public UpdateExerciseAdapter(ArrayList<Exercise> data) {
-        this.dataset = data;
+    public UpdateExerciseAdapter(ArrayList<Pair<String, Float>> mainLifts) {
+        this.mainLifts = mainLifts;
         selectedChanges = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < mainLifts.size(); i++) {
             selectedChanges.add(0f);
         }
     }
@@ -59,8 +61,8 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
     @Override
     public void onBindViewHolder(UpdateExerciseAdapter.UpdateExerciseViewHolder holder, int position) {
-        holder.title.setText(dataset.get(position).getName());
-        holder.weightText.setText(Float.toString(dataset.get(position).getTm()));
+        holder.title.setText(mainLifts.get(position).first);
+        holder.weightText.setText(Float.toString(mainLifts.get(position).second));
         holder.changeText.setText("Change: " + selectedChanges.get(position));
         holder.layout.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
@@ -76,7 +78,7 @@ public class UpdateExerciseAdapter extends RecyclerView.Adapter<UpdateExerciseAd
 
     @Override
     public int getItemCount() {
-        return dataset.size();
+        return mainLifts.size();
     }
 
     @Override

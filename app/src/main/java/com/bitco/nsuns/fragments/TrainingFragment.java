@@ -47,11 +47,13 @@ public class TrainingFragment extends Fragment {
         return view;
     }
 
-    public void updateData() {
+    public ArrayList<Workout> updateData() {
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<Workout> newWorkouts = db.getAllWorkouts();
         rAdapter = new TrainingAdapter(newWorkouts);
         recyclerView.setAdapter(rAdapter);
+
+        return newWorkouts;
     }
 
 

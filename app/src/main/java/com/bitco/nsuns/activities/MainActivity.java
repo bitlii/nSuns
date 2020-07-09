@@ -10,11 +10,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.bitco.nsuns.R;
 import com.bitco.nsuns.database.DatabaseHandler;
@@ -26,13 +27,12 @@ import com.bitco.nsuns.items.Workout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
     ArrayList<Workout> workouts;
-    ArrayList<Exercise> primaryExercises;
+    ArrayList<Pair<String, Float>> mainLifts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +53,20 @@ public class MainActivity extends AppCompatActivity {
 
         // Home/Training Fragment data reading from db.
         db = new DatabaseHandler(this);
-        primaryExercises = db.getPrimaryExerciseList();
+        mainLifts = db.getAllMainLifts();
         workouts = db.getAllWorkouts();
 
         // Bottom Nav View
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new HomeFragment(primaryExercises)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout, new HomeFragment(mainLifts)).commit();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
 
         switch (item.getItemId()) {
             case R.id.nav_home:
-                selectedFragment = new HomeFragment(primaryExercises);
+                selectedFragment = new HomeFragment(mainLifts);
                 break;
             case R.id.nav_train:
                 selectedFragment = new TrainingFragment(workouts);
@@ -94,7 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment frag = getSupportFragmentManager().findFragmentById(R.id.layout);
         if (frag instanceof TrainingFragment) {
-            ((TrainingFragment) frag).updateData();
+            ArrayList<Workout> updatedWorkouts = ((TrainingFragment) frag).updateData();
+            workouts = updatedWorkouts;
+        }
+        if (resultCode == Activity.RESULT_OK) {
+            mainLifts = db.getAllMainLifts();
         }
 
     }

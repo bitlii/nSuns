@@ -1,5 +1,6 @@
 package com.bitco.nsuns.adapters;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,15 +8,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitco.nsuns.R;
-import com.bitco.nsuns.items.Exercise;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
-    private ArrayList<Exercise> exercises;
+
+    ArrayList<Pair<String, Float>> lifts;
 
     public static class HomeViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
@@ -31,8 +33,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             layout = v.findViewById(R.id.layout);
         }
     }
-    public HomeAdapter(ArrayList<Exercise> data) {
-        exercises = data;
+    public HomeAdapter(ArrayList<Pair<String, Float>> lifts) {
+        this.lifts = lifts;
     }
 
     @NonNull
@@ -45,14 +47,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder h, int pos) {
-        h.title.setText(exercises.get(pos).getName());
-        h.weightText.setText(String.valueOf(exercises.get(pos).getTm()));
+        h.title.setText(lifts.get(pos).first);
+        h.weightText.setText(String.valueOf(lifts.get(pos).second));
         h.unitText.setText(R.string.unit_metric);
     }
 
     @Override
     public int getItemCount() {
-        return exercises.size();
+        return lifts.size();
     }
 
 }

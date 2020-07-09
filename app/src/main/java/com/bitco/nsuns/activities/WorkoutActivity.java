@@ -25,6 +25,7 @@ public class WorkoutActivity extends AppCompatActivity {
     Exercise primaryExercise;
     Exercise secondaryExercise;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +76,12 @@ public class WorkoutActivity extends AppCompatActivity {
     public void finishAddAccessory(Exercise e) {
         workout.getAccessories().add(e);
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout, 2)).commit();
+        getSupportFragmentManager().popBackStack();
     }
 
     public void finishEditAccessory() {
         db.updateWorkoutAccessories(workout);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new WorkoutFragment(workout, 2)).commit();
+        getSupportFragmentManager().popBackStack();
     }
 
 }

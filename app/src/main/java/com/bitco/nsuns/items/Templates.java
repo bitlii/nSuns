@@ -1,6 +1,7 @@
 package com.bitco.nsuns.items;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Templates {
 
@@ -85,151 +86,80 @@ public class Templates {
             false, false, false, false, false, false
     };
 
-    public static ArrayList<Workout> create4dayWorkouts(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Workout> workouts = new ArrayList<>();
-        ArrayList<Exercise> primaryExercises = create4DayPrimaryExercises(dlTm, squatTm, benchTm, ohpTm);
-        ArrayList<Exercise> secondaryExercises = create4DaySecondaryExercises(dlTm, squatTm, benchTm);
 
-        workouts.add(new Workout(secondaryExercises.get(0), primaryExercises.get(3)));
-        workouts.add(new Workout(primaryExercises.get(0), secondaryExercises.get(1)));
-        workouts.add(new Workout(primaryExercises.get(1), secondaryExercises.get(2)));
-        workouts.add(new Workout(primaryExercises.get(2), secondaryExercises.get(3)));
+    public static ArrayList<Workout> create4day(float dlTm, float squatTm, float benchTm, float ohpTm) {
+        ArrayList<Workout> workouts = new ArrayList<>();
+
+        workouts.add(new Workout(
+                new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm),
+                new Exercise("OHP", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("Squat", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_3, PRIMARY_ISAMRAP_1), squatTm),
+                new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_2, PRIMARY_ISAMRAP_1), benchTm),
+                new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("Deadlift", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_1, PRIMARY_ISAMRAP_1), dlTm),
+                new Exercise("Front Squat", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm)
+        ));
 
         return workouts;
-    }
-
-    public static ArrayList<Exercise> create4DayPrimaryExercises(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        exercises.add(new Exercise("Deadlift M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_1, PRIMARY_ISAMRAP_1), dlTm));
-        exercises.add(new Exercise("Bench M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_2, PRIMARY_ISAMRAP_1), benchTm));
-        exercises.add(new Exercise("Squat M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_3, PRIMARY_ISAMRAP_1), squatTm));
-        exercises.add(new Exercise("OHP M", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm));
-
-        return exercises;
-    }
-
-    public static ArrayList<Exercise> create4DaySecondaryExercises(float dlTm, float squatTm, float benchTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm));
-        exercises.add(new Exercise("Front Squat", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm));
-        exercises.add(new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-        exercises.add(new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm));
-
-        return exercises;
     }
 
     public static ArrayList<Workout> create5day(float dlTm, float squatTm, float benchTm, float ohpTm) {
         ArrayList<Workout> workouts = new ArrayList<>();
-        ArrayList<Exercise> primaryExercises = create5DayPrimary(dlTm, squatTm, benchTm, ohpTm);
-        ArrayList<Exercise> secondaryExercises = create5daySecondary(dlTm, squatTm, benchTm, ohpTm);
 
-        workouts.add(new Workout(secondaryExercises.get(0), secondaryExercises.get(1))); // Bench + OHP
-        workouts.add(new Workout(primaryExercises.get(0), secondaryExercises.get(2))); // Squat + Sumo
-        workouts.add(new Workout(primaryExercises.get(1), secondaryExercises.get(3)));
-        workouts.add(new Workout(primaryExercises.get(2), secondaryExercises.get(4)));
-        workouts.add(new Workout(primaryExercises.get(3), secondaryExercises.get(5)));
-
-        return workouts;
-    }
-
-    public static ArrayList<Exercise> create5DayPrimary(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        exercises.add(new Exercise("Squat M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_3, PRIMARY_ISAMRAP_1), squatTm));
-        exercises.add(new Exercise("OHP M", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm));
-        exercises.add(new Exercise("Deadlift M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_1, PRIMARY_ISAMRAP_1), dlTm));
-        exercises.add(new Exercise("Bench M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_2, PRIMARY_ISAMRAP_1), benchTm));
-
-        return exercises;
-    }
-
-    public static ArrayList<Exercise> create5daySecondary(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        exercises.add(new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm));
-        exercises.add(new Exercise("OHP", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm));
-        exercises.add(new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm));
-        exercises.add(new Exercise("Incline Bench", createRepSets(SECONDARY_PERCENTS_3, SECONDARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-        exercises.add(new Exercise("Front Squat", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm));
-        exercises.add(new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-
-        return exercises;
-    }
-
-    public static ArrayList<Workout> create6dayDeadlift(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Workout> workouts = new ArrayList<>();
-        ArrayList<Exercise> primaryExercises = create6DayPrimary(dlTm, squatTm, benchTm, ohpTm);
-        ArrayList<Exercise> secondaryExercises = create6daySecondaryDeadlift(dlTm, squatTm, benchTm, ohpTm);
-
-        workouts.add(new Workout(secondaryExercises.get(0), secondaryExercises.get(1))); // Bench + OHP
-        workouts.add(new Workout(primaryExercises.get(0), secondaryExercises.get(2))); // Squat + Sumo
-        workouts.add(new Workout(primaryExercises.get(1), secondaryExercises.get(3)));
-        workouts.add(new Workout(primaryExercises.get(2), secondaryExercises.get(4)));
-        workouts.add(new Workout(primaryExercises.get(3), secondaryExercises.get(5)));
-        workouts.add(new Workout(secondaryExercises.get(6), secondaryExercises.get(7)));
+        workouts.add(new Workout(
+                new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm),
+                new Exercise("OHP", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("Squat", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_3, PRIMARY_ISAMRAP_1), squatTm),
+                new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("OHP", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_3, PRIMARY_ISAMRAP_1), ohpTm),
+                new Exercise("Incline Bench", createRepSets(SECONDARY_PERCENTS_3, SECONDARY_REPS_2, SECONDARY_ISAMRAP), benchTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("Deadlift", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_1, PRIMARY_ISAMRAP_1), dlTm),
+                new Exercise("Front Squat", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm)
+        ));
+        workouts.add(new Workout(
+                new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_2, PRIMARY_ISAMRAP_1), benchTm),
+                new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm)
+        ));
 
         return workouts;
     }
 
     public static ArrayList<Workout> create6daySquat(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Workout> workouts = new ArrayList<>();
-        ArrayList<Exercise> primaryExercises = create6DayPrimary(dlTm, squatTm, benchTm, ohpTm);
-        ArrayList<Exercise> secondaryExercises = create6daySecondarySquat(dlTm, squatTm, benchTm, ohpTm);
+        ArrayList<Workout> workouts = create5day(dlTm, squatTm, benchTm, ohpTm);
 
-        workouts.add(new Workout(secondaryExercises.get(0), secondaryExercises.get(1))); // Bench + OHP
-        workouts.add(new Workout(primaryExercises.get(0), secondaryExercises.get(2))); // Squat + Sumo
-        workouts.add(new Workout(primaryExercises.get(1), secondaryExercises.get(3)));
-        workouts.add(new Workout(primaryExercises.get(2), secondaryExercises.get(4)));
-        workouts.add(new Workout(primaryExercises.get(3), secondaryExercises.get(5)));
-        workouts.add(new Workout(secondaryExercises.get(6), secondaryExercises.get(7)));
+        workouts.add(new Workout(
+                new Exercise("Squat", createRepSets(PRIMARY_PERCENTS_FOCUS, PRIMARY_REPS_FOCUS, SECONDARY_ISAMRAP), squatTm),
+                new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_FOCUS, SECONDARY_REPS_FOCUS, SECONDARY_ISAMRAP_FOCUS), dlTm)
+        ));
 
         return workouts;
     }
 
-    public static ArrayList<Exercise> create6DayPrimary(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
 
-        exercises.add(new Exercise("Squat M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_3, PRIMARY_ISAMRAP_1), squatTm));
-        exercises.add(new Exercise("OHP M", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm));
-        exercises.add(new Exercise("Deadlift M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_1, PRIMARY_ISAMRAP_1), dlTm));
-        exercises.add(new Exercise("Bench M", createRepSets(PRIMARY_PERCENTS_1, PRIMARY_REPS_2, PRIMARY_ISAMRAP_1), benchTm));
+    public static ArrayList<Workout> create6dayDeadlift(float dlTm, float squatTm, float benchTm, float ohpTm) {
+        ArrayList<Workout> workouts = create5day(dlTm, squatTm, benchTm, ohpTm);
+        Collections.swap(workouts, 1, 3);
 
-        return exercises;
+        workouts.add(new Workout(
+                new Exercise("Deadlift", createRepSets(PRIMARY_PERCENTS_FOCUS, PRIMARY_REPS_FOCUS, SECONDARY_ISAMRAP), dlTm),
+                new Exercise("Front Squat", createRepSets(SECONDARY_PERCENTS_FOCUS, SECONDARY_REPS_FOCUS, SECONDARY_ISAMRAP_FOCUS), squatTm)
+        ));
+
+        return workouts;
     }
-
-    public static ArrayList<Exercise> create6daySecondaryDeadlift(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        exercises.add(new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm));
-        exercises.add(new Exercise("OHP", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm));
-        exercises.add(new Exercise("Sumo Deadlift", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm));
-        exercises.add(new Exercise("Incline Bench", createRepSets(SECONDARY_PERCENTS_3, SECONDARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-        exercises.add(new Exercise("Front Squat 1", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm));
-        exercises.add(new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-        exercises.add(new Exercise("Deadlift", createRepSets(PRIMARY_PERCENTS_FOCUS, PRIMARY_REPS_FOCUS, SECONDARY_ISAMRAP), dlTm));
-        exercises.add(new Exercise("Front Squat 2", createRepSets(SECONDARY_PERCENTS_FOCUS, SECONDARY_REPS_FOCUS, SECONDARY_ISAMRAP_FOCUS), squatTm));
-
-        return exercises;
-    }
-
-    public static ArrayList<Exercise> create6daySecondarySquat(float dlTm, float squatTm, float benchTm, float ohpTm) {
-        ArrayList<Exercise> exercises = new ArrayList<>();
-
-        exercises.add(new Exercise("Bench", createRepSets(PRIMARY_PERCENTS_2, PRIMARY_REPS_4, PRIMARY_ISAMRAP_2), benchTm));
-        exercises.add(new Exercise("OHP", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_2, SECONDARY_ISAMRAP), ohpTm));
-        exercises.add(new Exercise("Sumo Deadlift 1", createRepSets(SECONDARY_PERCENTS_1, SECONDARY_REPS_1, SECONDARY_ISAMRAP), dlTm));
-        exercises.add(new Exercise("Incline Bench", createRepSets(SECONDARY_PERCENTS_3, SECONDARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-        exercises.add(new Exercise("Front Squat 1", createRepSets(SECONDARY_PERCENTS_2, SECONDARY_REPS_1, SECONDARY_ISAMRAP), squatTm));
-        exercises.add(new Exercise("CG Bench", createRepSets(SECONDARY_PERCENTS_3, PRIMARY_REPS_2, SECONDARY_ISAMRAP), benchTm));
-        exercises.add(new Exercise("Squat", createRepSets(PRIMARY_PERCENTS_FOCUS, PRIMARY_REPS_FOCUS, SECONDARY_ISAMRAP), squatTm));
-        exercises.add(new Exercise("Sumo Deadlift 2", createRepSets(SECONDARY_PERCENTS_FOCUS, SECONDARY_REPS_FOCUS, SECONDARY_ISAMRAP_FOCUS), dlTm));
-
-        return exercises;
-    }
-
-
-
 
     public static ArrayList<RepSet> createRepSets(float[] percentages, int[] reps, boolean[] isAmrap) {
         ArrayList<RepSet> repSets = new ArrayList<>();
