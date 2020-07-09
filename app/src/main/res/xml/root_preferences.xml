@@ -6,8 +6,9 @@
             android:entries="@array/templates"
             android:entryValues="@array/templates"
             android:key="template"
+            android:summary="Warning: Changing templates will wipe all accessories."
             android:title="Current Template"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>

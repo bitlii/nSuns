@@ -66,37 +66,31 @@ public class SetupActivity extends AppCompatActivity implements AdapterView.OnIt
         db.insertMainLift("OHP", ohpTm);
 
         ArrayList<Workout> workouts = new ArrayList<>();
+        String[] mainArray;
 
         switch(selectedTemplate) {
-            case "4-day":
-                workouts = Templates.create4day(dlTm, squatsTm, benchTm, ohpTm);
-                String[] mainArray = { "Bench", "OHP", "Squat", "Deadlift", "Bench", "Bench", "Deadlift", "Squat" };
-                for (int i=0; i<workouts.size(); i++) {
-                    Workout w = workouts.get(i);
-                    db.insertExercise(w.getPrimaryExercise(), mainArray[i * 2]);
-                    w.getPrimaryExercise().setId(db.getExerciseId(w.getPrimaryExercise()));
-                    db.insertExercise(w.getSecondaryExercise(), mainArray[i * 2 + 1]);
-                    w.getSecondaryExercise().setId(db.getExerciseId(w.getSecondaryExercise()));
-                    db.insertWorkout(w);
-                }
-                break;
-
             case "5-day":
                 workouts = Templates.create5day(dlTm, squatsTm, benchTm, ohpTm);
-
+                String[] array2 = { "Bench", "OHP", "Squat", "Deadlift", "OHP", "Bench", "Deadlift", "Squat", "Bench", "Bench" };
+                Templates.insertTemplate(db, workouts, array2);
                 break;
 
             case "6-day deadlift":
-
                 workouts = Templates.create6dayDeadlift(dlTm, squatsTm, benchTm, ohpTm);
-
+                String[] array3 = { "Bench", "OHP", "Deadlift", "Squat", "OHP", "Bench", "Squat", "Deadlift", "Bench", "Bench", "Deadlift", "Squat" };
+                Templates.insertTemplate(db, workouts, array3);
                 break;
 
             case "6-day squat":
-
                 workouts = Templates.create6daySquat(dlTm, squatsTm, benchTm, ohpTm);
-
+                String[] array4 = { "Bench", "OHP", "Squat", "Deadlift", "OHP", "Bench", "Deadlift", "Squat", "Bench", "Bench", "Squat", "Deadlift" };
+                Templates.insertTemplate(db, workouts, array4);
                 break;
+
+            default:
+                workouts = Templates.create4day(dlTm, squatsTm, benchTm, ohpTm);
+                String[] array = { "Bench", "OHP", "Squat", "Deadlift", "Bench", "Bench", "Deadlift", "Squat" };
+                Templates.insertTemplate(db, workouts, array);
         }
 
         db.close();

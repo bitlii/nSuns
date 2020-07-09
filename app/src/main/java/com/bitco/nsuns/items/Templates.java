@@ -1,5 +1,7 @@
 package com.bitco.nsuns.items;
 
+import com.bitco.nsuns.database.DatabaseHandler;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -86,6 +88,16 @@ public class Templates {
             false, false, false, false, false, false
     };
 
+    public static void insertTemplate(DatabaseHandler db, ArrayList<Workout> workouts, String[] mainLift) {
+        for (int i=0; i<workouts.size(); i++) {
+            Workout w = workouts.get(i);
+            db.insertExercise(w.getPrimaryExercise(), mainLift[i * 2]);
+            w.getPrimaryExercise().setId(db.getExerciseId(w.getPrimaryExercise()));
+            db.insertExercise(w.getSecondaryExercise(), mainLift[i * 2 + 1]);
+            w.getSecondaryExercise().setId(db.getExerciseId(w.getSecondaryExercise()));
+            db.insertWorkout(w);
+        }
+    }
 
     public static ArrayList<Workout> create4day(float dlTm, float squatTm, float benchTm, float ohpTm) {
         ArrayList<Workout> workouts = new ArrayList<>();

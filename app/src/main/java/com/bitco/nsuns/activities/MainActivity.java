@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         Fragment frag = getSupportFragmentManager().findFragmentById(R.id.layout);
-        if (frag instanceof TrainingFragment) {
+        if (frag instanceof TrainingFragment || resultCode == 2) {
             ArrayList<Workout> updatedWorkouts = ((TrainingFragment) frag).updateData();
             workouts = updatedWorkouts;
         }
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
         }
         return true;
     }

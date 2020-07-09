@@ -15,8 +15,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 // To access the database itself:
 // Run 'adb forward tcp:8080 tcp:8080' in terminal while debugging, then localhost:8080.
@@ -94,6 +92,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MAINLIFTS);
 
         onCreate(db);
+    }
+
+    public void changeTemplates() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WORKOUTS);
+
+        db.execSQL(CREATE_TABLE_EXERCISES);
+        db.execSQL(CREATE_TABLE_WORKOUTS);
     }
 
     public void insertExercise(Exercise e, String mainLift) {
