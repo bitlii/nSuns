@@ -47,20 +47,18 @@ public class SettingsActivity extends AppCompatActivity {
             templatePref.setOnPreferenceChangeListener(preferenceChangeListener);
         }
 
-        Preference.OnPreferenceChangeListener preferenceChangeListener = new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-
-                switch(preference.getKey()) {
-                    case "template":
+        Preference.OnPreferenceChangeListener preferenceChangeListener = (preference, newValue) -> {
+            switch(preference.getKey()) {
+                case "template":
+                    if (!newValue.toString().equals(getPreferenceManager().getSharedPreferences().getString(preference.getKey(), ""))) {
                         changeTemplate(newValue.toString());
                         Toast.makeText(getContext(), "Successfully changed templates.", Toast.LENGTH_SHORT).show();
                         getActivity().setResult(2);
-                        break;
-                }
-
-                return true;
+                    }
+                    break;
             }
+
+            return true;
         };
 
         public void changeTemplate(String newTemplate) {

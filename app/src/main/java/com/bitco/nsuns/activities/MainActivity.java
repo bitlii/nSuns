@@ -93,10 +93,16 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         Fragment frag = getSupportFragmentManager().findFragmentById(R.id.layout);
-        if (frag instanceof TrainingFragment || resultCode == 2) {
+        if (resultCode == 2) {
+            DatabaseHandler db = new DatabaseHandler(this);
+            workouts = db.getAllWorkouts();
+        }
+
+        if (frag instanceof TrainingFragment) {
             ArrayList<Workout> updatedWorkouts = ((TrainingFragment) frag).updateData();
             workouts = updatedWorkouts;
         }
+
         if (resultCode == Activity.RESULT_OK) {
             mainLifts = db.getAllMainLifts();
         }
